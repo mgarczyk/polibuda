@@ -1,0 +1,6 @@
+﻿  kolo.cpp
+C:\Users\Marcel\Desktop\kolo\kolo\kolo.cpp(42,42): warning C4244: "return": konwersja z "double" do "float", możliwa utrata danych
+C:\Users\Marcel\Desktop\kolo\kolo\kolo.cpp(45,34): warning C4244: "return": konwersja z "double" do "float", możliwa utrata danych
+C:\Users\Marcel\Desktop\kolo\kolo\kolo.cpp(51,30): warning C4244: "argument": konwersja z "double" do "float", możliwa utrata danych
+C:\Users\Marcel\Desktop\kolo\kolo\kolo.cpp(52,36): warning C4244: "argument": konwersja z "double" do "float", możliwa utrata danych
+  kolo.vcxproj -> C:\Users\Marcel\Desktop\kolo\Debug\kolo.exe
