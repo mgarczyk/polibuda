@@ -1,4 +1,0 @@
-﻿  kolokwium.cpp
-C:\Users\Marcel\Desktop\kolokwium\kolokwium\kolokwium.cpp(24,24): warning C4101: "aktualna_liczba": lokalna zmienna, do której nie istnieje odwołanie
-C:\Users\Marcel\Desktop\kolokwium\kolokwium\kolokwium.cpp(24,9): warning C4101: "suma_aktualna": lokalna zmienna, do której nie istnieje odwołanie
-  kolokwium.vcxproj -> C:\Users\Marcel\Desktop\kolokwium\Debug\kolokwium.exe
