@@ -1,0 +1,8 @@
+Instrukacja jak odpalić te pliki
+-ODPALA się w edytorze JupyterNotebook
+-Instalujesz Linux np. Ubuntu, może być wirtualka
+-Instalujesz pip przez terminal, wpisz w google insatall pip linux
+-instalujesz jupyternotebook, terminal, wpisz w google install jupyternotebook
+-instalujesz przez terminal potrzebne bibloteki numpy, sympy, pythonmathplot
+-powinno działać, możliwa konieczność zmiany uprawnień dla pliku z read-only, na write and read we właściwośiach danego pliku
+klika się na niego prawym->Properties->i gdzieś tam poklikasz i znajdziesz xD
