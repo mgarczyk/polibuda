@@ -1,0 +1,1183 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Type"
+content="text/html; charset=windows-1250">
+<meta name="GENERATOR" content="Microsoft FrontPage Express 2.0">
+<title>Emulator dydaktycznego systemu mikroprocesorowego DSM-51</title>
+</head>
+
+<body bgcolor="#FFFFFF">
+
+<h1 align="center">Emulator dydaktycznego systemu
+mikroprocesorowego DSM-51 firmy MicroMade</h1>
+
+<p align="left"><a href="#01"><font size="4">O autorze</font></a><font
+size="4"><br>
+</font><a href="#02"><font size="4">Przeznaczenie emulatora</font></a><font
+size="4"><br>
+</font><a href="#03"><font size="4">Zalecana konfiguracja
+sprzêtowa i programowa</font></a><font size="4"><br>
+</font><a href="#04"><font size="4">Pamiêæ ROM</font></a><font
+size="4"><br>
+</font><a href="#05"><font size="4">Korzystanie z programów
+zewnêtrznych</font></a><font size="4"><br>
+</font><a href="#06"><font size="4">Obs³uga emulatora</font></a><font
+size="4"><br>
+</font><font size="3">  </font><a href="#06-01"><font size="3">Uruchamianie
+i zatrzymywanie programu</font></a><font size="3"><br>
+  </font><a href="#06-02"><font size="3">Praca krokowa</font></a><font
+size="3"><br>
+  </font><a href="#06-03"><font size="3">Resetowanie i
+zerowanie</font></a><font size="3"><br>
+</font><a href="#07"><font size="4">Pu³apki</font></a><font
+size="4"><br>
+</font><a href="#08"><font size="4">Urz¹dzenia wejœcia</font></a><font
+size="4"><br>
+</font><font size="3">  </font><a href="#08-01"><font size="3">Sterowanie
+klawiatur¹</font></a><font size="3"><br>
+  </font><a href="#08-02"><font size="3">Sterowanie myszk¹</font></a><font
+size="3"><br>
+</font><a href="#09"><font size="4">Urz¹dzenia wyjœcia</font></a><font
+size="4"><br>
+</font><a href="#10"><font size="4">Pamiêæ i rejestry</font></a><font
+size="4"><br>
+</font><font size="3">  </font><a href="#10-01"><font size="3">Pamiêæ</font></a><font
+size="3"><br>
+  </font><a href="#10-02"><font size="3">Rejestry</font></a><font
+size="3"><br>
+</font><a href="#11"><font size="4">Watchdog</font></a><font
+size="4"><br>
+</font><a href="#12"><font size="4">Porty systemu i komunikacja z
+zewn¹trz</font></a><font size="4"><br>
+</font><font size="3">  </font><a href="#12-01"><font size="3">Porty
+szeregowe RS232 i port izolowany galwanicznie</font></a><font
+size="3"><br>
+  </font><a href="#12-02"><font size="3">Port równoleg³y</font></a><font
+size="3"><br>
+  </font><a href="#12-03"><font size="3">Port analogowy</font></a><font
+size="3"><br>
+</font><a href="#13"><font size="4">Emulacja transmisji
+szeregowej</font></a><font size="4"><br>
+</font><font size="3">  </font><a href="#13-01"><font size="3">Bufor
+transmisji szeregowej</font></a><font size="3"><br>
+  </font><a href="#13-02"><font size="3">Wybór portu i
+prêdkoœci transmisji</font></a><font size="3"><br>
+  </font><a href="#13-03"><font size="3">Kontrola parzystoœci</font></a><font
+size="3"><br>
+  </font><a href="#13-04"><font size="3">Wyœwietlanie
+otrzymanych danych</font></a><font size="3"><br>
+  </font><a href="#13-05"><font size="3">Wysy³anie danych</font></a><font
+size="3"><br>
+</font>  <a href="#13-06">Terminal tekstowy VT100/ANSI</a><font
+size="3"><br>
+</font>  <a href="#13-07">Korzystanie z terminala tekstowego</a><font
+size="3"><br>
+</font>  <a href="#13-08">Sterowanie terminalem tekstowym</a><font
+size="3"><br>
+</font><a href="#14"><font size="4">Ustawienia i parametry
+emulacji</font></a><font size="4"><br>
+</font><font size="3">  </font><a href="#14-01"><font size="3">Praca
+krokowa programu</font></a><font size="3"><br>
+  </font><a href="#14-02"><font size="3">Wykonywanie programu i
+p³ynnoœæ wyœwietlanie urz¹dzeñ wyjœcia</font></a><font
+size="3"><br>
+  </font><a href="#14-03"><font size="3">W³¹czanie
+wyœwietlacza LCD</font></a><font size="3"><br>
+  </font><a href="#14-04"><font size="3">Podtrzymywanie
+œwiecenia wyœwietlacza LED</font></a><font size="3"><br>
+</font><a href="#15"><font size="4">Kompatybilnoœæ i ró¿nice
+w stosunku do rzeczywistego systemem DSM-51</font></a><font
+size="4"><br>
+</font><font size="3">  </font><a href="#15-01"><font size="3">Szybkoœæ
+emulacji</font></a><font size="3"><br>
+  </font><a href="#15-02"><font size="3">TEST (dioda LED i
+buzzer)</font></a><font size="3"><br>
+  </font><a href="#15-03"><font size="3">Uk³ad 8255 -
+sterownik portu równoleg³ego</font></a><font size="3"><br>
+  </font><a href="#15-04"><font size="3">Sterownik transmisji
+szeregowej mikrokontrolera 8051</font></a><font size="3"><br>
+  </font><a href="#15-05"><font size="3">Uk³ad HD44780 -
+sterownik wyœwietlacza LCD</font></a><font size="3"><br>
+  </font><a href="#15-06"><font size="3">Urz¹dzenia
+zewnêtrzne produkowane przez MicroMade</font></a><font size="3"><br>
+  </font><a href="#15-07"><font size="3">Mo¿liwoœci i komendy
+terminala tekstowego</font></a><font size="3"><br>
+  </font><a href="#15-08"><font size="3">Obs³ugiwane komendy
+terminala</font></a><font size="3"><br>
+</font></p>
+
+<h2 align="center"><a name="01"></a>O autorze</h2>
+
+<p align="left">Autorem programu jest Andrzej Lisiecki, student
+IV roku studiów in¿ynierskich na kierunku Informatyka na
+Politechnice Poznañskiej.</p>
+
+<p align="left">Niniejszy emulator jest przedmiotem pracy
+dyplomowej in¿ynierskiej autora.</p>
+
+<h2 align="center"><a name="02"></a>Przeznaczenie emulatora</h2>
+
+<p align="left">G³ównym przeznaczeniem emulatora jest
+mo¿liwoœæ samodzielnego uruchamiania i korzystania z
+oprogramowania dla systemu DSM-51 w przypadku braku dostêpu do
+rzeczywistego systemu tego typu. System DSM-51 jest systemem
+s³u¿¹cym do nauki programowania mikrokontrolerów 8051 i
+poznawania zasad obs³ugi typowych elementów spotykanych w
+systemach mikroprocesorowych.</p>
+
+<p align="left">W niniejszym tekœcie zak³ada siê, ¿e
+u¿ytkownik emulatora zna zasadê dzia³ania wszystkich
+elementów systemu i sposób ich wykorzystania programie pisanym
+dla DSM-51.</p>
+
+<h2 align="center"><a name="03"></a>Zalecana konfiguracja
+sprzêtowa i programowa</h2>
+
+<p align="left">Zaleca siê, ¿eby procesor komputera by³
+przynajmniej wielow¹tkowy o czêstotliwoœci minimum 2000Hz,
+rozdzielczoœæ obrazu minimum 1280x800. W celu osi¹gniêcia
+szybkoœci odpowiadaj¹cej szybkoœci rzeczywistego systemu DSM-51,
+procesor powinien posiadaæ przynajmniej dwa rdzenie i byæ
+taktowany zegarem o czêstotliwoœci minimum 2500Hz. Emulator
+wymaga œrodowiska uruchomieniowego .NET w wersji 2.0 lub nowszej,
+lub kompatybilnego, np. Mono.</p>
+
+<p align="left">Emulator przetestowano na nastêpuj¹cych
+platformach programowych:</p>
+
+<p align="left">Microsoft Windows XP z zainstalowanym
+œrodowiskiem .NET w wersji 2.0.</p>
+
+<p align="left">OpenSUSE Linux z zainstalowanym œrodowiskiem
+Mono w wersji 2.6.1.</p>
+
+<p align="left">Na wymienionych platformach nie stwierdzono
+b³êdów uniemo¿liwiaj¹cych wykorzystanie emulatora.</p>
+
+<h2 align="center"><a name="04"></a>Pamiêæ ROM</h2>
+
+<p align="left">System DSM-51 posiada pamiêæ ROM z
+zawartoœci¹ okreœlona przez producenta. Integralnymi
+czêœciamu emulatora s¹ pliki DSM-51.ROM o wielkoœci 32768
+bajtów i HD44780.ROM o wielkoœci 2048 bajtów. Pamiêæ ROM
+systemu DSM-51 zawiera oprogramowanie uruchamiane przy
+uruchamianiu systemu bez wczytania programu zewnêtrznego oraz
+podprogramy do wykorzystania przez u¿ytkownika systemu.</p>
+
+<p align="left">W przypadku braku pliku DSM-51.ROM, z emulatora
+mo¿na korzystaæ, jednak trzeba mieæ na uwadze, ¿e je¿eli
+program wczytany do pamiêci RAM zawiera odwo³ania do
+przestrzeni adresowej w zakresie od 8000h do FFFFh i korzysta z
+zawartoœci pamiêci ROM, to mo¿e nie dzia³aæ prawid³owo.</p>
+
+<p align="left">Bezpoœrednio po uruchomieniu emulatora,
+przestrzeñ adresowa od 0000h do 7FFFh odwo³uje sie równie¿ do
+pamiêci ROM. Po wczytaniu programu zewnêtrznego nastêpuje
+automatyczna zmiana sposobu adresowania, ¿e przestrzeñ adresowa
+od 0000h do 7FFFh odwo³uje siê do pamiêci RAM.</p>
+
+<p align="left">Za pomoc¹ przycisku <strong>&quot;Pamiêæ&quot;</strong>
+mo¿na w dowolnej chwili zmieniæ, do której pamiêci ma siê
+odwo³ywaæ przestrzeñ adresowa od 0000h do 7FFFh. Zmiana
+nastêpuje poprzez prze³¹czenie realizowane jednym klikniêciem
+w przycisk. Po ka¿dej zmianie, w polu <strong>&quot;Pamiêæ
+programu&quot;</strong> w ramce <strong>&quot;Pamiêæ&quot;</strong>
+wyœwietla sie rodzaj pamiêci, do której odwo³uje sie
+przestrzeñ adresowa mikrokontrolera.</p>
+
+<p align="left">Plik HD44780.ROM zawiera wzory znaków dla
+wyœwietlacza LCD. Brak tego pliku uniemo¿liwia obserwacjê
+wyœwietlacza LCD przy uruchamianiu programów dla DSM-51
+korzystaj¹cych z wyœwietlacza LCD.</p>
+
+<h2 align="center"><a name="05"></a>Korzystanie z programów
+zewnêtrznych</h2>
+
+<p align="left">Emulator obs³uguje programy zewnêtrzne zapisane
+w formacie Intel Hex. Pliki w tym formacie mo¿e generowaæ
+praktycznie ka¿dy kompilator oprogramowania na mikrokontroler
+8051. Inne formaty plików nie s¹ obs³ugiwane.</p>
+
+<p align="left">Aby wczytaæ program zewnêtrzny, nale¿y
+klikn¹æ przycisk <strong>&quot;Wczytaj&quot;</strong>, a
+nastêpnie wybraæ plik w formacie Intel Hex.</p>
+
+<p align="left">Aby wyczyœciæ zawartoœæ pamiêci RAM, nale¿y
+klikn¹æ przycisk <strong>&quot;Wczytaj&quot;</strong>, a potem
+anulowaæ wybór pliku i potwierdziæ chêæ wyczyszczenia
+pamiêci RAM.</p>
+
+<p align="left">W przypadku wczytania pliku niezgodnego z Intel
+Hex lub b³êdu przy wczytywaniu, program zaproponuje
+wyczyszczenie pamiêci RAM, co mo¿e byæ pomocne, gdy zosta³a
+wczytana czêœæ pliku.</p>
+
+<h2 align="center"><a name="06"></a>Obs³uga emulatora</h2>
+
+<p align="left">Emulator pozwala uruchamiaæ i zatrzymywaæ
+pracê programu oraz wykonywanie krokowe, np. w celu znalezienia
+b³êdu w programie. Mo¿liwe jest te¿ resetowanie
+mikrokontrolera i ca³ego urz¹dzenia.</p>
+
+<h3 align="center"><a name="06-01"></a>Uruchamianie i
+zatrzymywanie programu</h3>
+
+<p align="left">Po wczytaniu programu, nale¿y klikn¹æ przycisk
+<strong>&quot;Start&quot;</strong>, aby rozpocz¹æ prace
+programu. W celu zatrzymania pracy programu nale¿y klikn¹æ
+przycisk <strong>&quot;Stop&quot;</strong>, po czym mo¿na
+kontynuowaæ pracê programu poprzez ponowne klikniêcie
+przycisku <strong>&quot;Start&quot;</strong>.</p>
+
+<h3 align="center"><a name="06-02"></a>Praca krokowa</h3>
+
+<p align="left">Aby wykonaæ jeden krok (jeden rozkaz), nale¿y
+klikn¹æ przycisk <strong>&quot;Krok&quot;</strong>. Mo¿liwe
+jest wykonywanie okreœlonej liczby rozkazów lub rozkazów
+mieszcz¹cych siê w okreœlonej liczbie cykli jako jeden krok. W
+tym celu, w ramce <strong>&quot;Ustawienia emulacji i
+wyœwietlania&quot;</strong>, w polu <strong>&quot;Rozkazów na
+krok&quot;</strong> nale¿y wpisaæ odpowiednia wartoœæ (liczba
+rozkazów / cykli na jeden krok). Aby wpisana wartoœæ by³a
+traktowana, jako liczba cykli, nale¿y zaznaczyæ pole <strong>&quot;Liczba
+cykli&quot;</strong>.</p>
+
+<h3 align="center"><a name="06-03"></a>Resetowanie i zerowanie</h3>
+
+<p align="left">Emulator pozwala w dowolnym momencie zresetowaæ
+mikrokontroler 8051, co wykonuje siê za pomoc¹ przycisku <strong>&quot;Resetuj&quot;</strong>.
+Resetowanie nie przywraca domyœlnych wartoœci parametrów
+urz¹dzeñ wchodz¹cych w sk³ad systemu DSM-51.</p>
+
+<p align="left">Natomiast klikniêcie przycisku <strong>&quot;Zeruj&quot;</strong>
+powoduje zresetowanie wszystkich elementów do wartoœci
+domyœlnych, co jest zalecane w celu wczytania i uruchomienia
+innego programu, ¿eby nie by³o œladów pracy poprzedniego.
+Zarówno resetowanie, jak i zerowanie, nie czyœci pamiêci RAM.</p>
+
+<h2 align="center"><a name="07"></a>Pu³apki</h2>
+
+<p align="left">Emulator posiada mo¿liwoœæ automatycznego
+zatrzymania programu w okreœlonym miejscu. Polega to na
+utworzeniu listy adresów punktów przerwania (pu³apki). Je¿eli
+w takcie pracy programu rejestr PC przyjmie jedn¹ z wartoœci z
+listy, nast¹pi automatyczne zatrzymanie programu bezpoœrednio
+przez wykonaniem rozkazu rozpoczynaj¹cego siê w punkcie
+przerwania. Nale¿y pamiêtaæ, ¿e niektóre rozkazy zajmuj¹
+wiêcej, ni¿ jeden bajt, co powoduje, ¿e przy wykonywaniu
+jednego rozkazu, rejestr PC zmienia wartoœæ o 2 lub wiêcej.
+Je¿eli pod adresem ustawionym jako punkt przerwania znajduje
+siê niepierwszy bajt rozkazu (opcode), to program nie zatrzyma
+siê w tym punkcie mimo uaktywnienia pu³apek.</p>
+
+<p align="left">Aby skorzystaæ z pu³apek, nale¿y w ramce <strong>&quot;Pu³apki&quot;</strong>
+zaznaczyæ pole <strong>&quot;Uaktywnij&quot;</strong>, a
+nastêpnie w polu poni¿ej wpisaæ adres punktu przerwania w
+systemie szesnastkowym i klikn¹æ przycisk <strong>&quot;Dodaj&quot;</strong>.
+Ni¿ej znajduje siê lista wprowadzonych pu³apek. Aby usun¹æ
+pu³apkê, nale¿y zaznaczyæ jej adres na tej liœcie i
+klikn¹æ przycisk <strong>&quot;Usuñ&quot;</strong>. Aby
+wykonaæ program bez dzia³ania pu³apek, nale¿y przed jego
+uruchomieniem odznaczyæ pole <strong>&quot;Uaktywnij&quot;</strong>.</p>
+
+<h2 align="center"><a name="08"></a>Urz¹dzenia wejœcia</h2>
+
+<p align="left">System DSM-51 posiada dwie klawiatury,
+klawiaturê matrycow¹ i przegl¹dan¹ sekwencyjnie. Obie
+klawiatury s¹ obs³ugiwane w podobny sposób. Mo¿na je
+obs³ugiwaæ za pomoc¹ klawiatury lub myszy.</p>
+
+<h3 align="center"><a name="08-01"></a>Sterowanie klawiatur¹</h3>
+
+<p align="left">Aby obs³u¿yæ emulowan¹ klawiaturê za pomoc¹
+klawiatury, nale¿y najpierw myszk¹ klikn¹æ bia³e pole
+znajduj¹ce siê w ramce <strong>&quot;Sterowanie klawiatur¹&quot;</strong>,
+a nastêpnie wciskaæ klawisze odpowiadaj¹ce klawiszom. Pozwala
+to w ³atwy sposób sterowaæ klawiatur¹ w trakcie pracy
+programu.</p>
+
+<p align="left">Do klawiszy klawiatury matrycowej przypisano
+klawisze z cyframi od <strong>&quot;0&quot;</strong> do <strong>&quot;9&quot;</strong>
+oraz z literami od <strong>&quot;A&quot;</strong> do <strong>&quot;F&quot;</strong>,
+natomiast do klawiszy klawiatury przegl¹danej sekwencyjnie
+przypisano klawisze ze strza³kami, klawisz <strong>&quot;Enter&quot;</strong>
+i klawisz <strong>&quot;Escape&quot;</strong>.</p>
+
+<p align="left">W przypadku wciœniêcia jednego z wy¿ej
+wymienionych klawiszy (po uprzednim klikniêciu pola w ramce <strong>&quot;Sterowanie
+klawiatur¹&quot;</strong>), odpowiadaj¹cy klawisz zostanie
+zaznaczony na zielono, natomiast zwolnienie klawisza spowoduje
+przywrócenie bia³ego koloru klawisza. </p>
+
+<h3 align="center"><a name="08-02"></a>Sterowanie myszk¹</h3>
+
+<p align="left">Mo¿na te¿ sterowaæ klawiaturami za pomoc¹
+myszki. Myszka umo¿liwia zatrzaskiwanie przycisku, czyli
+ustawienie go w stan nieustannego trzymania. Wykonuje siê to
+poprzez klikniecie danego przycisku. Zatrzaœniêty klawisz jest
+zaznaczony na czerwono. W ten sposób mo¿na zatrzasn¹æ dowolna
+liczbê klawiszy obu klawiatur. Zwolnienie klawisza nastêpuje
+przez ponownie klikniêcie w zatrzaœniêty klawisz lub przez
+wciœniêcie powi¹zanego z danym klawiszem klawisza klawiatury.</p>
+
+<p align="left">Zatrzaœniêcie przycisków jest u¿yteczne w
+przypadku uruchamiania programów, w których zdefiniowano inne
+dzia³anie w przypadku trzymania klawisza w momencie uruchamiania
+programu.</p>
+
+<h2 align="center"><a name="09"></a>Urz¹dzenia wyjœcia</h2>
+
+<p align="left">System DSM-51 posiada trzy urz¹dzenia wyjœcia:
+wyœwietlacz siedmiosegmentowy LED, wyœwietlacz alfanumeryczny
+LCD oraz sygnalizator wizualny i akustyczny TEST w postaci diody
+LED i buzzera.</p>
+
+<p align="left">Aby obserwowaæ dane urz¹dzenie wyjœcia,
+nale¿y zaznaczyæ pole odpowiadaj¹ce temu urz¹dzeniu w ramce <strong>&quot;Obserwowanie&quot;</strong>.
+Zaleca siê odznaczenie elementów, których dany program nie
+wykorzystuje. Jest to celowo wprowadzona w³aœciwoœæ z tego
+wzglêdu, ¿e œledzenie dowolnego urz¹dzenia wi¹¿e siê z
+wykonywaniem dodatkowych operacji przez emulator, co mo¿e
+spowodowaæ obni¿enie wydajnoœci emulacji.</p>
+
+<p align="left">Obserwacjê dowolnego elementu mo¿na w³¹czaæ
+i wy³¹czaæ zarówno w czasie pracy programu, jak i w przypadku,
+gdy program nie jest uruchomiony.</p>
+
+<p align="left">Obserwacja sygnalizatora TEST jest zrealizowana
+na dwa sposoby ze wzglêdu na dwie mo¿liwoœci wykorzystania
+sygnalizatora, co wymaga innego sposobu prezentacji stanu
+sygnalizatora. Zaznaczenie pola <strong>&quot;Sygnalizator TEST&quot;</strong>
+powoduje standardowe wyœwietlanie bie¿¹cego stanu
+sygnalizatora. Natomiast zaznaczanie &quot;TEST - uœrednianie&quot;
+powoduje wyœwietlanie uœrednione w okresie od poprzedniego
+wyœwietlenia do bie¿¹cego wyœwietlenia. W tym trybbie
+wyœwietlanie diody jest mo¿liwe w jednym z 17 stanów, a
+buzzera w jednym z 7 stanów. Stan, który reprezentuje jasnoœæ
+diody i g³oœnoœæ buzzera, jest stosunkiem liczby cykli, przez
+które dany element by³ w³¹czony do liczby wszystkich cykli z
+ostatniego okresu. Taki sposób dzia³ania nadaje siê do
+realizacji programów steruj¹cych jasnoœci¹ diody poprez
+zmianê stopnia wype³nienia cyklu œwiecenia diody.</p>
+
+<p align="left">U¿ycie jednego sposobu obserwowania
+sygnalizatora TEST wyklucza u¿ycie drugiego sposobu w tym samym
+czasie i na odwrót.</p>
+
+<h2 align="center"><a name="10"></a>Pamiêæ i rejestry</h2>
+
+<p align="left">Emulator pozwala na podgl¹d i edycjê
+zawartoœci pamiêci i rejestrów mikrokontrolera 8051 oraz
+pamiêci RAM. Aby wyœwietliæ bie¿¹cy stan rejestrów, nale¿y
+klikn¹æ przycisk <strong>&quot;Odœwie¿&quot;</strong> w ramce
+<strong>&quot;Pamiêæ&quot;</strong> lub w ramce <strong>&quot;Rejestry
+8051&quot;</strong>. Mo¿liwe jest te¿ œledzenie zawartoœci
+pamiêci i rejestrów w trakcie pracy programu, w tym celu
+nale¿y zaznaczyæ pole <strong>&quot;Pamiêæ&quot;</strong> lub
+<strong>&quot;Rejestry&quot;</strong> w ramce <strong>&quot;Obserwowanie&quot;</strong>.
+Obserwowanie pamiêci lub rejestrów na bie¿¹co mo¿e
+spowodowaæ zmniejszenie wydajnoœci pracy emulatora, podobnie,
+jak w przypadku urz¹dzeñ wyjœcia.</p>
+
+<h3 align="center"><a name="10-01"></a>Pamiêæ</h3>
+
+<p align="left">W przypadku pamiêci, dostêpne s¹ trzy typy:
+pamiêæ wewnêtrzna 8051, pamiêæ ROM i pamiêæ zewnêtrzna
+RAM. Wyœwietlan¹ pamiêæ wybiera siê poprzez zaznaczenie
+danego typu pamiêci. W przypadku pamiêci ROM i RAM, w danej
+chwili mo¿na wyœwietliæ zawartoœæ 256 kolejnych bajtów
+pamiêci. Aby zmieniæ wyœwietlany zakres, nale¿y w polu <strong>&quot;Adres
+pocz¹tkowy&quot;</strong> wpisaæ adres pocz¹tkowy w postaci
+hexadecymalnej i klikn¹æ przycisk <strong>&quot;Odœwie¿&quot;</strong>.
+Klikaj¹c przyciski <strong>&quot;&lt;&lt;&lt;&quot;</strong> i <strong>&quot;&gt;&gt;&gt;&quot;</strong>
+mo¿na swobodnie przemieszczaæ siê pomiêdzy kolejnymi blokami
+po 256 bajtów ka¿dy. W przypadku wyœwietlania pamiêci 8051,
+wprowadzony adres pocz¹tkowy nie spe³nia ¿adnej funkcji.</p>
+
+<p align="left">Mo¿liwa jest te¿ edycja zawartoœci dowolnej
+pamiêci. W tym celu nale¿y wyœwietliæ fragment, który
+zawiera bajty które chcemy edytowaæ. Nastêpnie nale¿y myszk¹
+klikn¹æ bajt pamiêci i wpisaæ ¿¹dan¹ wartoœæ. W ten
+sposób mo¿na edytowaæ kilka bajtów. Aby zatwierdziæ zmiany,
+nale¿y klikn¹æ przycisk <strong>&quot;Zapisz&quot;</strong>.
+Poniewa¿ przycisk <strong>&quot;Zapisz&quot;</strong> powoduje
+zast¹pienie wszystkich bajtów pamiêci z podanego zakresu
+wyœwietlanym bajtami, edycji nie zaleca siê wykonywaæ w
+trakcie pracy programu, na czas edycji zaleca siê zatrzymaæ
+program klikniêciem przycisku <strong>&quot;Stop&quot;</strong>,
+a bezpoœrednio przed edycj¹ zaleca siê klikniêcie przycisku <strong>&quot;Odœwie¿&quot;</strong>.</p>
+
+<p align="left">Pamiêæ ROM równie¿ mo¿na edytowaæ w taki
+sam sposób, jak pamiêæ RAM oraz wewnêtrzn¹. Aby przywróciæ
+oryginaln¹ zawartoœæ pamiêci ROM, nale¿y zamkn¹æ i
+ponownie uruchomiæ emulator.</p>
+
+<h3 align="center"><a name="10-02"></a>Rejestry</h3>
+
+<p align="left">Wyœwietlanie i edycja rejestrów wygl¹daj¹
+podobnie, jak w przypadku pamiêci. Aby wyœwietliæ aktualn¹
+zawartoœæ rejestrów, nale¿y klikn¹æ przycisk <strong>&quot;Odœwie¿&quot;</strong>.
+Aby edytowaæ, nale¿y wprowadziæ now¹ wartoœæ do dowolnego
+rejestru i klikn¹æ przycisk <strong>&quot;Zapisz&quot;</strong>.
+Analogicznie, jak w przypadku pamiêci, klikniêcie przycisku <strong>&quot;Zapisz&quot;</strong>
+spowoduje zmianê wartoœci wszystkich rejestrów na wartoœci
+wyœwietlane na ekranie. Z tego wzglêdu nie zaleca siê
+edytowaæ rejestrów w trakcie pracy programu, a bezpoœrednio
+przed dokonaniem edycji, zaleca sie klikniêcie przycisku <strong>&quot;Zapisz&quot;</strong>.</p>
+
+<h2 align="center"><a name="11"></a>Watchdog</h2>
+
+<p align="left">Rzeczywisty system DSM-51 posiada uk³ad watchdog,
+który wykonuje automatyczne reset po up³ywie 250 milisekund od
+momentu uaktywnienia go, o ile nie bêdzie on ponownie
+uaktywniony. W emulatorze jest on przedstawiony w ramce <strong>&quot;Watchdog&quot;</strong>
+w postaci paska o zmiennym wype³nieniu. Pusty pasek oznacza, ¿e
+uk³ad watchdog nie jest aktywny, natomiast czêœciowo
+wype³niony oznacza, ¿e uk³ad jest aktywny. Wraz z up³ywem
+czasu (kolejnych cykli maszynowych), wype³nienie siê zmniejsza.
+W momencie uaktywnienia, czyli zresetowania licznika czasu, pasek
+jest ca³kowicie wype³niony. Samo zresetowanie mikrokontrolera
+przez uk³ad watchdog ma identyczny skutek, jak klikniêcie
+przycisku <strong>&quot;Resetuj&quot;</strong>.</p>
+
+<p align="left">Aby obserwowaæ pracê uk³adu watchdog, nale¿y
+zaznaczyæ pole <strong>&quot;Watchdog&quot;</strong> w ramce <strong>&quot;Obserwowanie&quot;</strong>.</p>
+
+<h2 align="center"><a name="12"></a>Porty systemu i komunikacja z
+zewn¹trz</h2>
+
+<p align="left">System DSM-51 posiada dwa porty szeregowe RS232,
+port równoleg³y, port izolowany galwanicznie oraz port
+analogowy. Aby œledziæ wartoœci wystawiane na linie wyjœciowe
+portów, nale¿y w ramce <strong>&quot;Obserwowanie&quot;</strong>
+zaznaczyæ odpowiedni typ portów. Dla ustawiania wartoœci na
+liniach wejœciowych portów, nie jest potrzebne w³¹czanie
+obserwowania portu.</p>
+
+<h3 align="center"><a name="12-01"></a>Porty szeregowe RS232 i
+port izolowany galwanicznie</h3>
+
+<p align="left">Linie tych portów reprezentowane s¹ jako pola
+wyboru. Zaznaczone pole reprezentuje stan wysoki, a niezaznaczone
+reprezentuje stan niski na danej linii. Aby zmieniæ stan linii
+na porcie wejœciowym, nale¿y klikn¹æ myszk¹ pole
+reprezentuj¹ce dan¹ liniê. Mo¿na to robiæ zarówno podczas
+pracy programu, jak i w przypadku, gdy program jest zatrzymany.
+Linie wejœciowe i wyjœciowe s¹ oznaczone odpowiednio znakami <strong>&quot;&lt;&quot;</strong>
+i <strong>&quot;&gt;&quot;</strong>. Zmiana zaznaczenia linii
+wyjœciowych nie wp³ywa na dzia³anie emulatora ani programu.</p>
+
+<h3 align="center"><a name="12-02"></a>Port równoleg³y</h3>
+
+<p align="left">Sposób obs³ugi jest identyczny, jak w przypadku
+portów szeregowych z t¹ ró¿nic¹, ¿e kierunek danej linii
+mo¿e siê zmieniaæ. Je¿eli w polu reprezentuj¹cym dan¹
+liniê wyœwietlony jest znak <strong>&quot;&lt;&quot;</strong>,
+to znaczy, ¿e w danej chwili linia pracuje jako wejœcie. W
+przeciwnym wypadku jest wyœwietlany znak <strong>&quot;&gt;&quot;</strong>.</p>
+
+<h3 align="center"><a name="12-03"></a>Port analogowy</h3>
+
+<p align="left">System DSM-51 posiada port analogowy zawieraj¹cy
+osiem linii wejœciowych i jedn¹ liniê wyjœciow¹. Ka¿da
+linia jest reprezentowana przez jeden suwak. Suwaki od <strong>&quot;I0&quot;</strong>
+to <strong>&quot;I7&quot;</strong> reprezentuj¹ linie wejœciowe,
+natomiast suwak <strong>&quot;O&quot;</strong> reprezentuje
+liniê wyjœciow¹.</p>
+
+<p align="left">Aby ustawiæ wartoœæ linii wejœciowej, nale¿y
+ustawiæ suwak na ¿¹dana wartoœæ. Mo¿na to zrobiæ za
+pomoc¹ myszki, a w celu precyzyjnego ustawienia mo¿na wciskaæ
+klawisze ze strza³kami w górê i w dó³ po uprzednim
+klikniêciu na suwak. Pod suwakiem wyœwietlana jest aktualnie
+ustawiona wartoœæ.</p>
+
+<p align="left">Suwak reprezentuj¹cy linie wyjœciow¹ ustawiany
+jest automatycznie, o ile jest w³¹czona obserwacja portu
+analogowego. Pod suwakiem wyœwietlana jest aktualna wartoœæ na
+tej linii. Zmiana po³o¿enia suwaka reprezentuj¹cego liniê
+wyjœciow¹ nie ma wp³ywu na dzia³anie emulatora i programu.</p>
+
+<p align="left">Wyœwietlane wartoœci na liniach portu
+analogowego mieszcz¹ siê w przedziale od 0 do 255, co
+reprezentuje wartoœæ sygna³u wejœciowego po przekszta³ceniu
+na postaæ cyfrow¹ sygna³u z linii wejœciowej, oraz wartoœæ
+sygna³u wysy³an¹ do przetwornika cyfrowo-analogowego w
+przypadku linii wyjœciowej. W rzeczywistym systemie, wartoœciom
+od 0 do 255 odpowiada napiêcie od 0 do 5V.</p>
+
+<h2 align="center"><a name="13"></a>Emulacja transmisji
+szeregowej</h2>
+
+<p align="left">Emulator umo¿liwia emulacjê transmisji
+szeregowej poprzez korzystanie z bufora lub terminala tekstowego.
+Obie funkcje s¹ dostêpne po klikniêciu przycisku <strong>&quot;Bufor
+i terminal&quot;</strong> znajduj¹cego siê w ramce <strong>&quot;Komunikacja&quot;</strong>.
+Mo¿liwa jest emulacja komunikacji poprzez port COM1, COM2 lub
+port izolowany galwanicznie jako interfejs RS485 (w
+rzeczywistoœci jest to interfejs umo¿liwiaj¹cy po³¹czenie ze
+sob¹ kilku systemów DSM-51 poprzez port izolowany galwanicznie).
+W danej chwili, transmisja danych z wykorzystaniem bufora lub
+terminala mo¿e odbywaæ siê poprzez jeden port. W przypadku
+wyboru danego portu, pola wyboru reprezentuj¹ce linie tego portu
+w g³ównym oknie nie s¹ brane pod uwagê.</p>
+
+<p align="left">W oknie bufora transmisji szeregowej dokonuje
+siê wszystkich ustawieñ parametrów transmisji szeregowej i s¹
+one przejmowane przez terminal. Nie jest mo¿liwe jednoczesne
+odbieranie danych przez bufor i terminal, natomiast mo¿na
+wysy³aæ dowolne dane zarówno z terminala, jak i z bufora.</p>
+
+<h3 align="center"><a name="13-01"></a>Bufor transmisji
+szeregowej</h3>
+
+<p align="left">Bufor transmisji szeregowej u³atwia wymianê
+dowolnych danych poprzez porty szeregowe. Ta funkcja zosta³a
+wprowadzona z tego wzglêdu, ¿e rêczne wprowadzanie i
+wyprowadzanie danych przez te porty by³oby bardzo k³opotliwe.
+Aby uruchomiæ bufor, nale¿y klikn¹æ przycisk <strong>&quot;Bufor
+i terminal&quot;</strong> znajduj¹cy siê w ramce <strong>&quot;Komunikacja&quot;</strong>.</p>
+
+<h3 align="center"><a name="13-02"></a>Wybór portu i prêdkoœci
+transmisji</h3>
+
+<p align="left">Port wybiera sie w ramce <strong>&quot;Port&quot;</strong>.
+Wybór pola <strong>&quot;Brak&quot;</strong> oznacza, ¿e bufor
+nie jest wykorzystywany. Bufor mo¿e pracowaæ (odbieraæ dane z
+DSM-51) równie¿, jak jego okno nie jest otwarte. Nale¿y
+wybraæ ten port, z którego bufor ma przechwytywaæ dane i do
+którego ma te dane wysy³aæ. Po wybraniu portu, w polu <strong>&quot;Transmisja
+danych&quot;</strong>, nale¿y okreœliæ prêdkoœæ transmisji
+poprzez podanie liczby cykli maszynowych na jeden bit danych w
+polu <strong>&quot;Liczba cykli na jeden bit&quot;</strong>. Obok
+tego pola wyœwietlona jest wartoœæ w bitach na sekundê
+aktualizowana na bie¿¹co. Nale¿y wpisaæ tak¹ prêdkoœæ, w
+jakiej program uruchomiony w emulatorze wysy³a i odbiera dane. W
+przeciwnym wypadku, wyœwietlane i przesy³ane dane nie bêd¹
+prawid³owe. Wartoœæ <strong>&quot;Liczba bitów miedzy bajtami&quot;</strong>
+dotyczy danych wysy³anych z bufora do systemu DSM-51. Okreœla
+ona liczbê bitów miedzy kolejnymi bajtami w przypadku
+wysy³ania wiêcej ni¿ jeden bajt danych. W wiêkszoœci
+przypadków mo¿na pozostawiæ wartoœæ domyœln¹. Je¿eli
+jednak w emulatorze uruchomi siê program, który nie jest w
+stanie prawid³owo odbieraæ bajtów przesy³anych jeden za
+drugim, zwiêkszenie tej wartoœci pozwala rozwi¹zaæ problem.</p>
+
+<h3 align="center"><a name="13-03"></a>Kontrola parzystoœci</h3>
+
+<p align="left">Transmisja szeregowa asynchroniczna pozwala na
+dodanie dodatkowego, dziewi¹tego bitu, który jest
+wykorzystywany jako bit parzystoœci. Aby transmisja przebiega³a
+prawid³owo, w buforze musi byæ ustawienie parzystoœci zgodne z
+implementacj¹ parzystoœci w programie uruchamianym na
+emulatorze. Robi siê to poprzez wybór odpowiedniej opcji w
+ramce <strong>&quot;Bit parzystoœci&quot;</strong>. Wybranie
+nieprawid³owej opcji mo¿e skutkowaæ odrzuceniem niektórych
+danych wysy³anych do systemu (w zale¿noœci od implementacji
+przetwarzania danych w programie), natomiast nie wp³ywa na
+wyœwietlanie danych otrzymanych z DSM-51 (wyœwietlane s¹
+wszystkie odebrane bajty). Je¿eli w ramce <strong>&quot;Reprezentacja
+danych&quot;</strong> zaznaczone bêdzie pole <strong>&quot;Parzystoœæ&quot;</strong>
+i w ramce <strong>&quot;Bit parzystoœci&quot;</strong> bêdzie
+wybrana inna opcja ni¿ <strong>&quot;Brak&quot;</strong>, to
+przy ka¿dym odebranym bajcie bêdzie wyœwietlony znak <strong>&quot;+&quot;</strong>
+w przypadku poprawnego bitu parzystoœci, w przeciwnym przypadku
+jest wyœwietlany znak <strong>&quot;-&quot;</strong>.</p>
+
+<h3 align="center"><a name="13-04"></a>Wyœwietlanie otrzymanych
+danych</h3>
+
+<p align="left">Mo¿liwe s¹ dwie reprezentacje otrzymanych
+danych. Pierwszy sposób to wyœwietlanie danych jako tekst, a
+drugi to wyœwietlanie ich w postaci hexadecymalnej. Okreœla
+siê to przez wybór odpowiedniego pola w ramce <strong>&quot;Reprezentacja
+danych&quot;</strong>. Zmiana reprezentacji danych dotyczy
+wy³¹cznie danych otrzymanych po dokonaniu tej zmiany. Wszystkie
+otrzymane dane s¹ wyœwietlane w polu <strong>&quot;Dane
+otrzymane z DSM-51&quot;</strong>. W dowolnej chwili mo¿na
+usun¹æ zawartoœæ tego pola poprzez klikniêcie przycisku <strong>&quot;Wyczyœæ
+bufor danych otrzymanych&quot;</strong>.</p>
+
+<p align="left">W przypadku wyboru reprezentacji jako tekst,
+ka¿dy bajt 0Ah lub 0Dh jest interpretowany jako znak koñca
+linii, natomiast wszystkie bajty od 00h do 19h, oprócz 0Dh i 0Ah,
+s¹ wyœwietlane jako <strong>&quot;*&quot;</strong>.</p>
+
+<p align="left">Natomiast w przypadku wyboru reprezentacji w
+postaci hexadecymalnej, kolejne bajty s¹ wyœwietlane jako
+liczby w systemie szesnastkowym oddzielone spacj¹.</p>
+
+<h3 align="center"><a name="13-05"></a>Wysy³anie danych</h3>
+
+<p align="left">Aby wys³aæ dowolne dane do systemu DSM-51,
+nale¿y te dane wprowadziæ do pola <strong>&quot;Dane do
+wys³ania do DSM-51&quot;</strong>. Reprezentacja wprowadzonych
+danych mo¿e byæ w formie tekstu lub hexadecymalnej i okreœla
+siê j¹ w polu <strong>&quot;Reprezentacja danych&quot;</strong>.</p>
+
+<p align="left">W przypadku wyboru reprezentacji jako tekst, do
+pola nale¿y wprowadziæ dowolny tekst do wys³ania. Ka¿dy znak
+koñca linii jest wysy³any jako bajty kolejno 0Dh i0Ah. W
+przypadku niektórych znaków, szczególnie znaków z poza
+zakresu ASCII, mo¿e nie byæ mo¿liwe okreœlenie kodu ASCII
+danego znaku. Ka¿dy taki znak jest traktowany jako bajt 20h (spacja).</p>
+
+<p align="left">Natomiast w przypadku wyboru reprezentacji w
+postaci hexadecymalnej, brane s¹ pod uwagê tylko cyfry od <strong>&quot;0&quot;</strong>
+do <strong>&quot;9&quot;</strong>, litery od <strong>&quot;A&quot;</strong>
+do <strong>&quot;F&quot;</strong> oraz litery od <strong>&quot;a&quot;</strong>
+do <strong>&quot;f&quot;</strong>. Wszystkie inne znaki i znaki
+koñca linii s¹ ignorowane. Interpretacja polega na sklejeniu
+kolejnych znalezionych cyfr w systemie szesnastkowym w kolejne
+bajty do wys³ania. Je¿eli liczba wszystkich znalezionych cyfr
+jest nieparzysta, to dopisuje siê cyfrê <strong>&quot;0&quot;</strong>.</p>
+
+<p align="left">Po wprowadzeniu danych, nale¿y klikn¹æ
+przycisk <strong>&quot;Wyœlij zawartoœæ bufora do DSM-51&quot;</strong>.
+W trakcie wysy³ania zawartoœci bufora nie jest mo¿liwe
+wys³anie innych danych, a tak¿e nie jest mo¿liwe przerwanie
+wysy³ania danych.</p>
+
+<h3 align="center"><a name="13-06"></a>Terminal tekstowy VT100/ANSI</h3>
+
+<p align="left">Terminal tekstowy jest to urz¹dzenie, które
+posiada ekran wyœwietlaj¹cy tekst o rozdzielczoœci 80x24 znaki
+lub 132x24 znaki.</p>
+
+<p align="left">Najpopularniejsze s¹ dwa terminale: VT100 (czarno-bia³y)
+i ANSI (kolorowy). W przypadku tych terminali nie istniej¹
+komendy, które maj¹ ró¿ny skutek realizacji, natomiast
+wiêkszoœæ komend ma ten sam skutek realizacji na obu typach
+terminali. Z tego wzglêdu jest mo¿liwa emulacja obu typów
+terminali naraz.</p>
+
+<p align="left">Terminal tekstowy przejmuje ustawienia
+parametrów transmisji szeregowej dokonane w oknie bufora
+transmisji szeregowej.</p>
+
+<p align="left">Aby uruchomiæ terminal, nale¿y klikn¹æ
+przycisk <strong>&quot;Bufor i terminal&quot;</strong>
+znajduj¹cy siê w ramce <strong>&quot;Komunikacja&quot;</strong>
+w celu uruchomienia bufora transmisji szeregowej, a nastêpnie
+klikn¹æ przycisk <strong>&quot;Terminal VT100/ANSI&quot;</strong>.</p>
+
+<h3 align="center"><a name="13-07"></a>Korzystanie z terminala
+tekstowego</h3>
+
+<p align="left">Aby móc korzystaæ z terminala tekstowego,
+nale¿y zaznaczyæ opcjê <strong>&quot;Terminal aktywny&quot;</strong>
+w polu <strong>&quot;Ustawienia&quot;</strong>. Od tej chwili,
+wszystkie bajty wysy³ane z DSM-51 bêd¹ kierowane do terminala.
+Od tych danych zale¿y wyœwietlana zawartoœæ na ekranie.</p>
+
+<p align="left">W niektórych przypadkach potrzebne jest
+traktowanie bajtu 0Dh (CR) jako sekwencjê bajtów 0Dh (CR) i 0A
+(LF). W tym celu w ramce <strong>&quot;Ustawienia&quot;</strong>
+nale¿y znaznaczyæ pole <strong>&quot;CRLF wysy³any&quot;</strong>
+w przypadku, gdy ka¿de naciœniêcie klawisza Enter (wys³anie
+bajtu 0Dh) ma byæ wysy³ana sekwencja 0D0Ah, lub pole <strong>&quot;CRLF
+odbierany&quot;</strong>, je¿eli po odebraniu 0Dh ma nast¹piæ
+przejœcie do nastêpnej linii (tak, jakby terminal odebra³ 0D0Ah).</p>
+
+<p align="left">Mo¿e siê zdarzyæ, ¿e w trakcie pracy programu
+nast¹pi koniecznoœæ zresetowania lub uruchomienia innego
+programu. W takiej sytuacji najczêœciej nie jest zalecane,
+¿eby nowy lub zresetowany program u¿ywa³ ju¿ okreœlonych
+wczeœcniej atrybutów tekstu lub ¿eby ekran zawiera³ tekst. W
+celu zresetowania atrybutów tekstu nale¿y klikn¹æ <strong>&quot;Zresetuj
+atrybuty tekstu&quot;</strong>, a w celu wyczyszczenia ekranu
+nale¿y klikn¹æ <strong>&quot;Wyczyœæ ekran&quot;</strong>.</p>
+
+<p align="left">Przyciski <strong>&quot;Powiêksz&quot;</strong>
+i <strong>&quot;Pomniejsz&quot;</strong> powoduj¹ zmianê
+wielkoœci czcionki terminala.</p>
+
+<h3 align="center"><a name="13-08"></a>Sterowanie terminalem
+tekstowym</h3>
+
+<p align="left">Terminal tekstowy jest sterowany za pomoc¹
+klawiatury. Ka¿de naciœniêcie klawisza powoduje wys³anie
+okreœlonych danych, zwi¹zanych z danym klawiszem. W przypadku
+klawiszy ze znakami drukowalnymi, przesy³any jest kod ASCII
+naciskanego znaku. W przypadku pozosta³ych obs³ugiwanych
+klawiszy, przesy³ana jest sekwencja bajtów.</p>
+
+<p align="left">Aby sterowaæ terminalem, nale¿y klikn¹æ
+myszk¹ bia³e pole znajduj¹ce siê w ramce <strong>&quot;Klawiatura&quot;</strong>.
+Ze wzglêdów technicznych nie jest mo¿liwy odczyt stanu
+klawisza Caps Lock, dlatego poni¿ej wspomnianego pola znajduje
+siê opcja <strong>&quot;Wielkie litery&quot;</strong>, której
+dzia³anie jest identyczne, jaik dzia³anie klawisza Caps Lock.
+Program reaguje na samo naciskanie klawisza Caps Lock, wiêc
+mo¿na w ka¿dej chwili zmieniæ stan opcji <strong>&quot;Wielkie
+litery&quot;</strong>, przy czym stan w danym momencie nie musi
+odpowiadaæ aktualnemu stanowi klawisza Caps Lock w systemie
+operacyjnim.</p>
+
+<p align="left">Prawid³owa obs³uga klawiszy Tab i F10 nie jest
+mo¿liwa ze wzglêdu na standardowe funkcje zwi¹zane z oknem w
+systemie operacyjnym. Klawisz Tab powoduje przejœcie do
+nastêpnego elementu okna, a klawisz F10 wywo³uje menu okna.
+Mo¿liwe jest przejêcie funkcji tych dwóch klawiszy przez
+klawisz Control.</p>
+
+<p align="left">Ustawia siê to w ramce <strong>&quot;Klawisz
+Control&quot;</strong>. Opcja <strong>&quot;Control&quot;</strong>
+oznacza standardowe dzia³anie tego klawisza (terminal obs³uguje
+kombinacje Control+litera, Control+Enter i Control+Backspace).
+Opcje <strong>&quot;Tab&quot;</strong> i <strong>&quot;F10&quot;</strong>
+oznaczaj¹, ¿e dzia³anie klawisza Control jest równowa¿ne z
+dzia³aniem klawisza, odpowiednio Tab lub F10. Opcje mo¿na
+zmieniaæ myszk¹ w dowolnej chwili wedle aktualnych potrzeb.</p>
+
+<h2 align="center"><a name="14"></a>Ustawienia i parametry
+emulacji</h2>
+
+<p align="left">Emulator posiada kilka opcji, które wp³ywaj¹
+na szybkoœæ emulacji oraz wyœwietlanie urz¹dzeñ wyjœcia.
+Wszystkie te parametry okreœla siê w ramce <strong>&quot;Ustawienia
+emulacji i wyœwietlania&quot;</strong>. Osi¹gana szybkoœæ
+emulacji wyœwietlana jest w polu <strong>&quot;Cykli na sekundê&quot;</strong>
+i zale¿y od mocy obliczeniowej komputera i obserwowanych
+urz¹dzeñ wyjœcia. Szybkoœæ rzeczywistego systemu DSM-51
+wynosi 921600 cykli na sekundê. Szybkoœæ emulacji mo¿e siê
+zmieniaæ w zale¿noœci od wykonywanych operacji oraz od
+dzia³ania obserwowanych urz¹dzeñ wyjœcia.</p>
+
+<h3 align="center"><a name="14-01"></a>Praca krokowa programu</h3>
+
+<p align="left">Wymienione opcje okreœlaj¹, ile kolejnych
+rozkazów zostanie wykonanych po klikniecie przycisku <strong>&quot;Krok&quot;</strong>,
+gdy program jest zatrzymany.</p>
+
+<p align="left">Pole <strong>&quot;Rozkazów na krok&quot;</strong>
+okreœla liczbê wykonywanych rozkazów na jeden krok pracy
+programu.</p>
+
+<p align="left">Pole <strong>&quot;Liczba cykli&quot;</strong>
+okreœla, ¿e wartoœæ wpisana w pole <strong>&quot;Rozkazów na
+krok&quot;</strong> jest liczb¹ cykli, które przemijaj¹ w
+trakcie wykonywania jednego kroku. Jest to liczba minimalna,
+wiêc je¿eli po przeminiêciu okreœlonej liczby cykli program
+przetworzy czêœæ rozkazu, to przeminie tyle cykli, ile jest
+wymagane do dokoñczenia przetwarzania programu.</p>
+
+<h3 align="center"><a name="14-02"></a>Wykonywanie programu i
+p³ynnoœæ wyœwietlanie urz¹dzeñ wyjœcia</h3>
+
+<p align="left">Wymienione opcje wp³ywaj¹ na szybkoœæ
+wykonywania programu oraz na p³ynnoœæ wyœwietlania urz¹dzeñ
+wyjœcia, w tym linii wyjœciowych portów i stanu uk³adu
+watchdog. Wartoœci nale¿y dobieraæ doœwiadczalnie, dla
+konkretnego przypadku.</p>
+
+<p align="left">Pole <strong>&quot;Liczba rozkazów na iteracjê&quot;</strong>
+okreœla liczbê rozkazów na jedn¹ iteracje pêtli programu. W
+wiêkszoœci przypadkuw zaleca siê pozostawiæ wartoœæ
+domyœln¹, ale na niektórych komputerach i systemach
+operacyjnych, zmiana tej wartoœci mo¿e spowodowaæ wzrost
+szybkoœci emulacji, jezeli szybkoœæ emulacji nie jest
+osi¹gana na poziomie 100%.</p>
+
+<p align="left">Pole <strong>&quot;Okres czasu odœwie¿ania&quot;</strong>
+okreœla okres czasu miêdzy dwoma odœwie¿eniami stanu
+urz¹dzeñ wyjœcia. Im mniejsza wartoœæ, tym bardziej p³ynne
+wyœwietlanie, ale mo¿e to spowodowaæ zmniejszenie szybkoœci
+emulacji, szczególnie na procesorach jednordzeniowych.</p>
+
+<p align="left">Pole <strong>&quot;Odœwie¿aj po iteracji&quot;</strong>
+okreœla, ¿e odœwie¿anie stanu urz¹dzeñ wyjœcia odbywa siê
+nie co okreœlony czas, lecz po ka¿dej iteracji. Na niektórych
+komputerach takie dzia³anie mo¿e zwiêkszyæ p³ynnoœæ
+wyœwietlania, ale równie¿ spowodowaæ zmniejszenie szybkoœci
+emulacji. Opcja przydatna w przypadku koniecznoœci œledzenia
+bardzo szybkich zmian stanu urz¹dzeñ wyjœcia, szybkoœc
+emulacji mo¿e siê obni¿yæ.</p>
+
+<p align="left">Pole <strong>&quot;W¹tki&quot;</strong> okreœla,
+czy program mo¿e wykorzystywaæ wielow¹tkowoœæ. To pole
+zwykle powinno byæ zaznaczone. Mo¿na wy³¹czyæ t¹ opcjê w
+przypadku problemów z prac¹ emulatora.</p>
+
+<h3 align="center"><a name="14-03"></a>W³¹czanie wyœwietlacza
+LCD</h3>
+
+<p align="left">Domyœlnie, po uruchomieniu systemu, wyœwietlacz
+LCD jest wy³¹czony. W rzeczywistym systemie DSM-51 wyœwietlacz
+LCD jest domyœlnie w³¹czony, poniewa¿ zaraz po w³¹czeniu
+systemu, automatycznie jest wykonywany program, który w³¹cza
+wyœwietlacz i wyœwietla na nim pewne napisy, a program jest
+³adowany poprzez port COM1. Z tego powodu mo¿e siê zdarzyæ,
+¿e w uruchamianym programie nie ma rozkazów powoduj¹cych
+w³¹czenie wyœwietlacza LCD, tylko od razu s¹ rozkazy
+powoduj¹ce wyœwietlanie danych. Je¿eli program uruchomiony w
+emulatorze nie wyœwietla ¿adnych danych na wyœwietlaczu LCD,
+mimo, ¿e w rzeczywistym systemie wyœwietla na tym wyœwietlaczu
+wszystkie dane prawid³owo, to nale¿y zaznaczyæ pole <strong>&quot;LCD
+w³¹czony&quot;</strong>, klikn¹æ przycisk <strong>&quot;Zeruj&quot;</strong>
+i ponownie uruchomiæ program.</p>
+
+<h3 align="center"><a name="14-04"></a>Podtrzymywanie œwiecenia
+wyœwietlacza LED</h3>
+
+<p align="left">Wyœwietlacz siedmiosegmentowy LED zwykle jest
+obs³ugiwany jako multipleksowany. Oznacza to, ¿e w danej chwili
+œwieci siê tylko jeden znak (najczêœciej cyfra), jednak
+œwiec¹cy znak jest zmieniany w krótkich odstêpach czasu,
+wynosz¹cych najczêœciej ok. 1ms. Taki sposób sterowania
+znacznie upraszcza budowê i sterowanie wyœwietlaczem, oraz
+wykorzystuje bezw³adnoœæ ludzkiego oka, co powoduje, ¿e
+cz³owiek ma wra¿enie, ¿e œwiec¹ siê wszystkie znaki i
+ka¿dy znak mo¿e byæ inny.</p>
+
+<p align="left">Pe³na implementacja bezw³adnoœci
+spowodowa³aby znaczne spowolnienie pracy emulatora, a brak
+uwzglêdniania tego spowoduje, ze wyœwietlanie nie bêdzie
+stabilne.</p>
+
+<p align="left">Z tego wzglêdu w emulatorze zastosowano
+uproszczon¹ metodê imitacji bezw³adnoœci ludzkiego oka
+poprzez podtrzymywanie œwiecenia segmentów przez okreœlony
+czas (okreœlony liczb¹ cykli) od momentu ustania œwiecenia
+danego segmentu w wyniku pracy programu uruchomionego w
+emulatorze.</p>
+
+<p align="left">W polu <strong>&quot;Podtrzymywanie LED (cykle)&quot;</strong>
+okreœla siê liczbê cykli, przez któr¹ ka¿dy segment ma
+jeszcze œwieciæ po ustaniu œwiecenia wynikaj¹cego z pracy
+programu. Wartoœæ nale¿y dobraæ doœwiadczalnie, domyœlna
+wartoœæ jest optymalna w wiêkszoœci przypadków. Zbyt ma³a
+spowoduje niestabilne wyœwietlanie wyœwietlacza (znaki bêd¹
+znikaæ, mimo, ¿e na rzeczywistym systemie nie znikaj¹), a zbyt
+du¿a spowoduje du¿¹ bezw³adnoœæ wyœwietlacza, co objawia
+siê tym, ¿e po zmianie znaku w danym miejscu, przez pewien czas
+bêd¹ wyœwietlane stary i nowy znak na³o¿one na siebie.</p>
+
+<h2 align="center"><a name="15"></a>Kompatybilnoœæ i ró¿nice
+w stosunku do rzeczywistego systemem DSM-51</h2>
+
+<p align="left">Celem projektu jest wysoka kompatybilnoœæ
+emulatora z rzeczywistym systemem DSM-51. Z ró¿nych powodów
+kompatybilnoœæ w 100% nie jest mo¿liwa, wiêc poni¿ej
+wymieniono elementy, które nie s¹ w 100% zgodne z rzeczywistym
+systemem DSM-51. Natomiast autor do³o¿y³ wszelkich starañ,
+¿eby poza wymienionymi elementami emulator by³ w 100% zgodny z
+rzeczywistym systemem.</p>
+
+<h3 align="center"><a name="15-01"></a>Szybkoœæ emulacji</h3>
+
+<p align="left">Szybkoœæ rzeczywistego systemu DSM-51 wynosi
+921600 cykli maszynowych na sekundê. Emulacja ze sta³¹
+szybkoœci¹ jest bardziej skomplikowana i wymaga wykonywania
+wiêcej dodatkowych operacji, co mo¿e sie przyczyniæ do
+znacznego obni¿enia siê wydajnoœci. Emulator ogranicza
+szybkoœæ emulacji do szybkoœci 921600 cykli na sekundê,
+jednak na wolniejszych komputerach, szybkoœæ emulacji mo¿e
+byæ ni¿sza.</p>
+
+<h3 align="center"><a name="15-02"></a>TEST (dioda LED i buzzer)</h3>
+
+<p align="left">W rzeczywistym systemie DSM-51 sygnalizator TEST
+sk³ada siê z dwóch elementów: dioda LED (sygna³ wizualny) i
+buzzer (sygna³ akustyczny). Oba elementy, podobnie, jak inne
+urz¹dzenia wyjœcia, s¹ emulowane przez odpowiednie elementy
+graficzne w interfejsie emulatora. Emulator nie generuje
+dŸwiêków, poniewa¿ generowanie lub odtwarzanie dŸwiêku na
+bie¿¹co wi¹¿e sie z obs³ug¹ DirectX lub MCI oraz
+wykonywaniem dodatkowych operacji.</p>
+
+<p align="left">Ze wzglêdu na odœwie¿enie w sta³ych
+odstêpach czasu i braku implementacji bezw³adnoœci, nie jest
+mo¿liwe pe³ne oddanie dzia³ania sygnalizatora w rzeczywistym
+systemie DSM-51. Dotyczy to miêdzy innymi za³¹czania i
+wy³¹czania diody LED w tak krótkich odstêpach czasu, ¿eby
+u¿ytkownik odniós³ wra¿enie, ¿e dioda œwieci œwiat³em
+ci¹g³ym, ale ze zmniejszon¹ jasnoœci¹. To samo dotyczy
+wyœwietlacza siedmiosegmentowego, który w rzeczywistym systemie
+równie¿ mo¿e œwieciæ ze zmniejszon¹ jasnoœci¹ poprzez
+odpowiednie sterowanie.</p>
+
+<p align="left">Istnieje jednak mo¿liwoœæ uœredniania stanu
+sygnalizatora TEST, wyœwietla siê œredni¹ liczon¹ od
+poprzedniego wyœwietlenia do bie¿¹cego wyœwietlenia stanu
+urz¹dzeñ wyjœcia.</p>
+
+<h3 align="center"><a name="15-03"></a>Uk³ad 8255 - sterownik
+portu równoleg³ego</h3>
+
+<p align="left">W rzeczywistym systemie DSM-51 czêœæ A i B
+portu równoleg³ego na uk³adzie 8255 mog¹ pracowaæ w jednym z
+kilku trybów. Dla czêœci A przewidziano 3 tryby (0, 1 i 2), a
+dla czêœci B przewidziano 2 tryby (0 i 1). Czêœæ C posiada
+jeden tryb. Domyœlnym i najczêœciej wykorzystywanym trybem dla
+wszystkich czêœci jest tryb 0. Pozosta³e tryby wykorzystuje
+siê tylko przy transmisji danych z wykorzystaniem linii
+steruj¹cych, które od strony systemu DSM-51 znajduj¹ siê w
+miejscu linii czêœci C. Emulator obs³uguje tylko tryb 0 dla
+czêœci A i B.</p>
+
+<p align="left">Tryby 1 (dla czêœci A i B) oraz 2 (dla czêœci
+A) nie s¹ zaimplementowane z tego wzglêdu, ¿e te tryby s¹
+u¿yteczne tylko przy transmisji danych miêdzy systemami DSM-51
+lub do drukarki LPT, gdzie transmisja wymaga potwierdzeñ. W
+pozosta³ych przypadkach, np. do sterowania ró¿nymi
+urz¹dzeniami, wykorzystuje siê tryb 0.</p>
+
+<h3 align="center"><a name="15-04"></a>Sterownik transmisji
+szeregowej mikrokontrolera 8051</h3>
+
+<p align="left">W rzeczywistym mikrokontrolerze 8051 znajduje
+siê sterownik transmisji szeregowej, który mo¿e pracowaæ w
+jednym z 4 trybów (0, 1, 2 i 3). Emulator obs³uguje tylko tryby
+1 i 3. </p>
+
+<p align="left">Wykorzystanie trybu 0 nie jest mo¿liwe,
+poniewa¿ interfejs RS232 nie obs³uguje transmisji
+synchronicznej zrealizowanej w ten sposób, w jaki jest to
+zrobione w mikrokontrolerze 8051. Prêdkoœæ transmisji 921600bps
+(wynika z zastosowania czêstotliwoœci taktowania
+mikrokontrolera 11059200Hz) nie jest obs³ugiwana przez ¿aden
+komputer PC. Z tego wzglêdu tryb 0 nie jest zaimplementowany.</p>
+
+<p align="left">Natomiast tryb 2 zwykle nie jest u¿ywany,
+poniewa¿ ten tryb oferuje prêdkoœci 172800bps i 345600bps,
+które nie s¹ obs³ugiwane w komputerach PC. Poza tym, czas
+transmisji jednego bitu w tym trybie nie jest wielokrotnoœci¹
+czasu trwania jednego cyklu maszynowego, co znacznie komplikuje
+implementacjê obs³ugi tego trybu. Z tego wzglêdu tryb 2
+równie¿ nie jest zaimplementowany.</p>
+
+<h3 align="center"><a name="15-05"></a>Uk³ad HD44780 - sterownik
+wyœwietlacza LCD</h3>
+
+<p align="left">Rzeczywisty sterownik HD44780 mo¿e obs³ugiwaæ
+ró¿ne wyœwietlacze alfanumeryczne. Ustawienie sterownika w
+tryb w³aœciwy dla pod³¹czonego wyœwietlacza realizuje siê
+poprzez rozkaz &quot;001xxxyy&quot;, gdzie trzy bity &quot;xxx&quot;
+okreœlaj¹ parametry wyœwietlacza, a dwa bity &quot;yy&quot;
+nie s¹ brane pod uwagê. Zmiana ustawieñ parametrów w
+przypadku systemu DSM-51 nie jest u¿yteczna, poniewa¿ w tym
+systemie jest trwale zamontowany okreœlony wyœwietlacz. Z tego
+wzglêdu rozkaz &quot;001xxxyy&quot; nie jest obs³ugiwany w
+emulatorze, jego wykonanie nie powoduje ¿adnych skutków.</p>
+
+<h3 align="center"><a name="15-06"></a>Urz¹dzenia zewnêtrzne
+produkowane przez MicroMade</h3>
+
+<p align="left">Oprócz systemu DSM-51, firma MicroMade produkuje
+ró¿ne urz¹dzenia przeznaczone do wspó³pracy z tym systemem.
+Urz¹dzenia zewnêtrzne nie s¹ obs³ugiwane, natomiast mo¿na
+symulowaæ dowolne urz¹dzenie poprzez obserwowanie i zmiany
+odpowiednich linii portów w trakcie pracy programu (ci¹g³ej
+lub krokowej).</p>
+
+<h3 align="center"><a name="15-07"></a>Mo¿liwoœci terminala
+tekstowego</h3>
+
+<p align="left">Rzeczywisty terminal VT100 mo¿e wyœwietlaæ
+tekst i grafikê. Zaimplementowany zosta³ tylko tryb tekstowy.
+Wiêkszoœæ programów emuluj¹cych terminal VT100 lub ANSI
+równie¿ wyœwietla tylko tekst. Terminal zawarty w emulatorze
+DSM-51 wyœwietla tylko tekst w trybie 80x24 lub 132x24.
+Domyœlnym trybem jest tryb 80x24. Terminal jest sterowany za
+pomoc¹ komend, które rozpoczynaj¹ siê od bajtu 1Bh. W
+wiêkszoœci przypadków wykorzystuje siê tylko niektóre z nich.</p>
+
+<h3 align="center"><a name="15-08"></a>Obs³ugiwane komendy
+terminala</h3>
+
+<p align="left">W emulatorze zaimplementowano tylko komendy
+przedstawione w poni¿szych tabelach (bajt 1B nie jest
+przedstawiony).</p>
+
+<p align="left"><strong><u>Praca terminala:</u></strong></p>
+
+<table border="2" width="100%">
+    <tr>
+        <td width="10%"><strong>Komenda</strong></td>
+        <td width="90%"><strong>Znaczenie</strong></td>
+    </tr>
+    <tr>
+        <td width="10%">[20h</td>
+        <td width="90%">Po ka¿dym wys³anym bajcie 0Dh jest
+        wysy³any bajt 0Ah.</td>
+    </tr>
+    <tr>
+        <td width="10%">[20l</td>
+        <td width="90%">Po wys³aniu bajtu 0Dh nie jest wysy³any
+        bajt 0Ah.</td>
+    </tr>
+    <tr>
+        <td width="10%">[?3h</td>
+        <td width="90%">Tryb 132x24.</td>
+    </tr>
+    <tr>
+        <td width="10%">[?3l</td>
+        <td width="90%">Tryb 80x24.</td>
+    </tr>
+    <tr>
+        <td width="10%">[?7h</td>
+        <td width="90%">Automatyczne przechodzenie do nastêpnej
+        linii po zape³nieniu bie¿¹cej linii.</td>
+    </tr>
+    <tr>
+        <td width="10%">[?7l</td>
+        <td width="90%">Bez automatycznego przechodzenia do
+        nastêpnej linii.</td>
+    </tr>
+</table>
+
+<p><strong><u>Atrybuty tekstu:</u></strong></p>
+
+<table border="2" width="100%">
+    <tr>
+        <td width="10%"><strong>Komenda</strong></td>
+        <td width="90%"><strong>Znaczenie</strong></td>
+    </tr>
+    <tr>
+        <td width="10%">[*m</td>
+        <td width="90%">Ustawianie atrybutów tekstu. W miejscu
+        gwiazdki wystêpuje lista parametrów w postaci liczb
+        oddzielonych œrednikiem. Obs³ugiwane s¹ wszystkie
+        przewidziane atrybuty tekstu.</td>
+    </tr>
+    <tr>
+        <td width="10%">[m</td>
+        <td width="90%">Komenda równowa¿na komendzie [0m.</td>
+    </tr>
+</table>
+
+<p>Tekst migaj¹cy jest przedstawiony w postaci kursywy.</p>
+
+<p>Tekst niewidoczny jest przedstawiony w postaci tekstu
+przekreœlonego.</p>
+
+<p><strong><u>Przemieszczanie kursora po ekranie:</u></strong></p>
+
+<table border="2" width="100%">
+    <tr>
+        <td width="10%"><strong>Komenda</strong></td>
+        <td width="90%"><strong>Znaczenie</strong></td>
+    </tr>
+    <tr>
+        <td width="10%">[nA</td>
+        <td width="90%">Przesuniêcie kursora o n znaków w
+        górê.</td>
+    </tr>
+    <tr>
+        <td width="10%">[A</td>
+        <td width="90%">Komenda równowa¿na komendzie [1A.</td>
+    </tr>
+    <tr>
+        <td width="10%">[nB</td>
+        <td width="90%">Przesuniêcie kursora o n znaków w dó³.</td>
+    </tr>
+    <tr>
+        <td width="10%">[B</td>
+        <td width="90%">Komenda równowa¿na komendzie [1B.</td>
+    </tr>
+    <tr>
+        <td width="10%">[nC</td>
+        <td width="90%">Przesuniêcie kursora o n znaków w prawo.</td>
+    </tr>
+    <tr>
+        <td width="10%">[C</td>
+        <td width="90%">Komenda równowa¿na komendzie [1C.</td>
+    </tr>
+    <tr>
+        <td width="10%">[nD</td>
+        <td width="90%">Przesuniêcie kursora o n znaków w lewo.</td>
+    </tr>
+    <tr>
+        <td width="10%">[D</td>
+        <td width="90%">Komenda równowa¿na komendzie [1D.</td>
+    </tr>
+    <tr>
+        <td width="10%">[X,YH</td>
+        <td width="90%">Przemieszczenie kursora do pozycji X,Y.</td>
+    </tr>
+    <tr>
+        <td width="10%">[H</td>
+        <td width="90%">Komenda równowa¿na komendzie [1,1H.</td>
+    </tr>
+    <tr>
+        <td width="10%">[X,Yf</td>
+        <td width="90%">Komenda równowa¿na komendzie [X,YH.</td>
+    </tr>
+    <tr>
+        <td width="10%">[f</td>
+        <td width="90%">Komenda równowa¿na komendzie [1,1f.</td>
+    </tr>
+</table>
+
+<p><strong><u>Czyszczenie fragmentów ekranu:</u></strong></p>
+
+<table border="2" width="100%">
+    <tr>
+        <td width="10%"><strong>Komenda</strong></td>
+        <td width="90%"><strong>Znaczenie</strong></td>
+    </tr>
+    <tr>
+        <td width="10%">[0K</td>
+        <td width="90%">Czyszczenie bie¿¹cej linii od kursoa do
+        koñca.</td>
+    </tr>
+    <tr>
+        <td width="10%">[1K</td>
+        <td width="90%">Czyszczenie bie¿¹cej linii od pocz¹tku
+        do kursora.</td>
+    </tr>
+    <tr>
+        <td width="10%">[2K</td>
+        <td width="90%">Czyszczenie bie¿¹cej linii w ca³oœci.</td>
+    </tr>
+    <tr>
+        <td width="10%">[K</td>
+        <td width="90%">Komenda równowa¿na komendzie [0K.</td>
+    </tr>
+    <tr>
+        <td width="10%">[0J</td>
+        <td width="90%">Czyszczenie fragmentu ekranu przed
+        kursorem.</td>
+    </tr>
+    <tr>
+        <td width="10%">[1J</td>
+        <td width="90%">Czyszczenie fragmentu ekranu za kursorem.</td>
+    </tr>
+    <tr>
+        <td width="10%">[2J</td>
+        <td width="90%">Czyszczenie ca³ego ekranu.</td>
+    </tr>
+    <tr>
+        <td width="10%">[J</td>
+        <td width="90%">Komenda równowa¿na komendzie [0J.</td>
+    </tr>
+</table>
+
+<p><strong><u>Inne komendy:</u></strong></p>
+
+<table border="2" width="100%">
+    <tr>
+        <td width="10%"><strong>Komenda</strong></td>
+        <td width="90%"><strong>Znaczenie</strong></td>
+    </tr>
+    <tr>
+        <td width="10%">[s</td>
+        <td width="90%">Zachowanie aktualnej pozycji kursora.</td>
+    </tr>
+    <tr>
+        <td width="10%">[u</td>
+        <td width="90%">Przemieszczenie kursora do zachowanej
+        pozycji.</td>
+    </tr>
+    <tr>
+        <td width="10%">[A,Br</td>
+        <td width="90%">Zdefiniowanie okna w zakresie od linii A
+        do linii B. Okno jest to obszar, w którym mo¿e
+        przemieszczaæ siê kursor oraz przewijaæ tekst przy
+        wstawianiu nowej linii.</td>
+    </tr>
+</table>
+</body>
+</html>
