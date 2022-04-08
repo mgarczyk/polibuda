@@ -95,7 +95,7 @@ class weather_API():
                 coord_dict = json.load(csv_json)
         except FileNotFoundError:
             print("\nPlik zawierający dane z koordynatami nie istnieje. Funkcja ta nie będzie działać, spróbuj zainstalować ponownie lub użyć opcji /name")
-            return 0
+            return -1
 
         #tłumacznie koordynatow
         while True:
@@ -115,7 +115,11 @@ class weather_API():
         dates = []
         name, ext = os.path.splitext(file_name)       #nazwa miasta do wykresu wyciągamy ją z nazwy pliku
         with open('data/' + file_name) as data_file:  #odpalamy nasz pliczek jako obiekt json
-            data = json.load(data_file)
+            try:
+                data = json.load(data_file)
+            except json.decoder.JSONDecodeError:
+                print("Plik zawiera nieprawidłowe dane - być może podałeś zakes dat odwrotnie, spróbuj ponownie.")
+                return -1
         for D in data["days"]:                       #zauważamy że kolene dni są zawarte w polu days (D - to jeden dzień z zakresu)
             temperature.append(D["temp"])            #temperatury w danym dniu do jednej listy
             dates.append(D["datetime"])              #daty na drugą
