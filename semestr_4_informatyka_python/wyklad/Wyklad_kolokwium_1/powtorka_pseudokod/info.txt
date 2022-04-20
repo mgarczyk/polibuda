@@ -1,0 +1,1 @@
+-Python indeksuje listy od 0 do n-1, a w pętlach podajemy od czego startujemy i ile kroków (a nie, gdzie ma się skończyć)
