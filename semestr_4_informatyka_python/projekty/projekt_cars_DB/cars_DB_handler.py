@@ -1,26 +1,13 @@
 import pesel_utils
 import mysql.connector
 from mysql.connector import errorcode
-from mysql.connector.errors import Error
-
-
-
+import config
 
 class cars_DB_handling:
     def __init__(self):
-        #tu otwieramy połączenie z naszą bazą danych
-        config = {
-            'user': 'root',
-            'password': 'Kamera97',
-            'host': '127.0.0.1',
-            'database': 'cars_db',
-            'raise_on_warnings': True
-        }
-        try:
-            self.cnx = mysql.connector.connect(**config)
-        except mysql.connector.Error:
-            print("Błąd podczas łączenia się z bazą danych, spróbuj poprawić hasło lub nazwę użytkownika.")
-        self.cursor = self.cnx.cursor()
+       self.config = config.configuration()
+       self.cnx = self.config.cnx
+       self.cursor = self.config.cursor
 
     def choose_table(self):
         while True:
@@ -63,6 +50,12 @@ class cars_DB_handling:
         #marka itd.
         while True:
             try:
+                register_number = str(input("Podaj numer rejestracyjny: "))
+                break
+            except ValueError:
+                print("Podano błędne dane, spróbuj ponownie")
+        while True:
+            try:
                 mark = str(input("Podaj markę: "))
                 break
             except ValueError:
@@ -99,15 +92,38 @@ class cars_DB_handling:
             except ValueError:
                 print("Podano błędne dane, spróbuj ponownie")
         #wykonanie kwernedy
-        query = "INSERT INTO cars (mark, model, horse_power, color, year_of_production, owner_ID) VALUES (%s, %s, %s, %s, %s, %s )" # te procenty ozanczają zmienne i ich rodzej %s to string, a %d to intiger
-        record = (mark, model, horse_power, color, year_of_production, owner_ID)
+        query = "INSERT INTO cars (register_number, mark, model, horse_power, color, year_of_production, owner_ID) VALUES (%s, %s, %s, %s, %s, %s, %s )" # te procenty ozanczają zmienne i ich rodzej %s to string, a %d to intiger
+        record = (register_number, mark, model, horse_power, color, year_of_production, owner_ID)
         try:
             self.cursor.execute(query, record)
-            print(self.cursor.rowcount, "Rekord został dodany do tabeli")
+            print(self.cursor.rowcount, f"Dane dotyczące pojazdu o numerze rejestracyjnym {register_number} zostały dodane do tabeli.")
             self.cnx.commit()
-        except mysql.connector.IntegrityError as err:
-                print("Error: {}".format(err))
-                print("Spróbuj ponownie.")
+        except mysql.connector.IntegrityError as err:  #jeżeli dany numer rejestracyjny jest zajęty robimy update lub nie
+            self.update_cars(record, register_number, mark, model, horse_power, color, year_of_production, owner_ID)
+
+
+
+    def update_cars(self, record, register_number, mark, model, horse_power, color, year_of_production, owner_ID):
+        while True:
+            try:
+                choose = str(input("Pojazd o takim numerze rejestracyjnym już istnieje, czy chcesz zaaktualizować dane? Podaj Y jeżeli tak lub N jeżeli nie."))
+                if choose not in ['Y', 'N']:
+                    raise ValueError
+                break
+            except ValueError:
+                print("Podano błędne dane, spróbuj ponownie")
+        if choose == "Y":
+            query = "UPDATE cars SET  register_number = %s, mark = %s, model = %s,  horse_power = %s, color = %s, year_of_production = %s, owner_ID = %s WHERE (register_number = %s)" #updateujemy wiersz zawierający podany numer rejestracyjny
+            record = (register_number, mark, model, horse_power, color, year_of_production, owner_ID, register_number)
+            try:
+                self.cursor.execute(query, record)
+                print(self.cursor.rowcount, f"Dane dotyczące pojazdu o numerze rejestracyjnym {register_number} zostały zaaktualizowane.")
+                self.cnx.commit()
+            except mysql.connector.IntegrityError as err:  #jeżeli dany numer rejestracyjny jest zajęty robimy update lub nie
+                print("Bład, być może podano złą nazwę tabeli, spróbuj ponownie.")
+        else:
+            print("Ok, przechodzimy dalej.")
+
 
 
     def insert_owners(self):
@@ -139,11 +155,33 @@ class cars_DB_handling:
         record = (pesel, first_name, last_name)
         try:
             self.cursor.execute(query, record)
-            print(self.cursor.rowcount, "Rekord został dodany do tabeli")
+            print(self.cursor.rowcount, f"Dane dotyczące osoby o numerze PESEL {pesel} zostały dodane to bazy danych.")
             self.cnx.commit()
         except mysql.connector.errors.IntegrityError as err:
-            print("Osoba o takim PESELU jest już w bazie danych, spróbuj ponownie.")
-            return 0
+            self.update_owners(record, pesel, first_name, last_name)
+
+    def update_owners(self, record, pesel, first_name, last_name):
+        while True:
+            try:
+                choose = str(input("Pojazd o takim numerze rejestracyjnym już istnieje, czy chcesz zaaktualizować dane? Podaj Y jeżeli tak lub N jeżeli nie."))
+                if choose not in ['Y', 'N']:
+                    raise ValueError
+                break
+            except ValueError:
+                print("Podano błędne dane, spróbuj ponownie")
+
+        if choose == "Y":
+            query = "UPDATE owners SET  pesel = %s, first_name = %s, last_name = %s WHERE (pesel = %s)" #updateujemy wiersz zawierający podany numer pesel
+            record = (pesel, first_name, last_name, pesel)
+            try:
+                self.cursor.execute(query, record)
+                print(self.cursor.rowcount, f"Dane dotyczące osoby o numerze PESEL {pesel} zostały zaaktualizowane.")
+                self.cnx.commit()
+            except mysql.connector.IntegrityError as err:  #jeżeli dany numer rejestracyjny jest zajęty robimy update lub nie
+                print("Bład, być może podano złą nazwę tabeli, spróbuj ponownie.")
+        else:
+            print("Ok, przechodzimy daalej.")
+
 
     def select_data(self):
         # pobieranie skąd chcemy wyświetlić
@@ -164,12 +202,13 @@ class cars_DB_handling:
         # wyśiwtlanie aut
         for row in records:
             print("car_ID = ", row[0])
-            print("mark = ", row[1])
-            print("model  = ", row[2])
-            print("horse_power  = ", row[3])
-            print("color  = ", row[4])
-            print("year_of_production  = ", row[5])
-            print("owner_ID  = ", row[6], "\n")
+            print("register_number = ", row[1])
+            print("mark = ", row[2])
+            print("model  = ", row[3])
+            print("horse_power  = ", row[4])
+            print("color  = ", row[5])
+            print("year_of_production  = ", row[6])
+            print("owner_ID  = ", row[7], "\n")
 
     def print_owners(self, records):
         for row in records:
@@ -197,27 +236,35 @@ class cars_DB_handling:
 
     def print_cars_by_mark(self, records):
         for row in records:
-            print("Samochód: ")
             print("car_ID = ", row[0])
-            print("mark = ", row[1])
-            print("model  = ", row[2])
-            print("horse_power  = ", row[3])
-            print("color  = ", row[4])
-            print("year_of_production  = ", row[5])
-            print("owner_ID  = ", row[6], "\n")
-            print("Właściciel: ")
+            print("register_number = ", row[1])
+            print("mark = ", row[2])
+            print("model  = ", row[3])
+            print("horse_power  = ", row[4])
+            print("color  = ", row[5])
+            print("year_of_production  = ", row[6])
             print("owner_ID  = ", row[7])
-            print("pesel = ", row[8])
-            print("first_name  = ", row[9])
-            print("last_name  = ", row[10], "\n")
+            print("owner_ID = ", row[8])
+            print("pesel = ", row[9])
+            print("first_name  = ", row[10])
+            print("last_name  = ", row[11], "\n")
 
 
+   # def sql_injection_test(self):
+        # zadanie co robiliśmy na zajęciach na tej samej bazie #
+        # wysiwtlanie pojazdu po ID wpisanym przez usera, można zobaczyć sql injection jeżeli podamy na 1 OR inna kwerneda (wtedy jeżeli będzie user od ID = 1, wykona się też druga kwerenda np. drop databese nazwa;
+        # id = str(input("Podaj ID właścicela"))
+        # query = 'SELECT * FROM owners WHERE owner_ID = ' + id
+        # self.cursor.execute(query)
+        # records = self.cursor.fetchall()
+        # self.print_owners(records)
 
 
 if __name__ == '__main__':
     while True:
         while True:
             cars_DB_handle = cars_DB_handling() # obiekt "uchwyt", w pewnym sensie ilustrujący naszą bazę danych i co chcemy z nią robić
+            # cars_DB_handle.sql_injection_test()  #testrowanie sql injection (było na zajęciach)
             try:
                 choose = str(input("Podaj polecenie:"
                                    "\n/insert - wstaw dane"

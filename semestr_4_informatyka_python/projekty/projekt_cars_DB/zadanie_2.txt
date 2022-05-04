@@ -1,0 +1,11 @@
+Zadanie 2:
+Dwie klasy car i owner, w obu oczywiście konstruktor
+Metody dla obu takie same:
+Pobieramy dane z tabeli, potem tworzymy obiekty do każdej z klasy i dodajemy je do listy.
+Jakby konwertujemy wyniki z bazy na obiekty pythona i ostaetcznie zwracamy listę, to samo dla cars i owners (osobne pliki najlepiej)
+Config z bazą danych, można wyrzucić do innego pliku typu consfig.py
+Meoda safe - która zapisze dany obiekt z klasy car, będzie insertować albo updateować obiekt do bazy.
+Jeżeli dana rzecz nie istnieje to INSERT JAK NIE TO UPDATE.
+lista[0] = 'BMW'
+lista[0].safe() -> zmieni markę z auta na xyz na BMW
+Rozwiązanie w pliku cars.py, owners.py
