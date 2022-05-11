@@ -1,5 +1,6 @@
 #import biblotek zewnętrznych
 import mysql.connector
+import pdb
 from mysql.connector import errorcode
 #import naszych plików
 import config
@@ -169,8 +170,10 @@ if __name__ == '__main__':
 
     cars_config = config.configuration()  #obiekt który jest jakby naszą bazą - z pliku cars_DB_handler.py, zaiera selecty i wyświetlanie + inserty
     #pusta tablica na obiekty cars
+    # pdb.set_trace() # - uruchamia debbuger pythona, linia po linii można sprawdzić czy wszystko git bo ten pycharmowy nie zawsze działa (żeby przejść dalej klikamy n->Enter)
     cars_list = []
     while True:
+        choose = 'abc'
         while True:
             try:
                 choose = str(input("Czy chcesz utworzyć kolejny obiekt? Y/N: "))
