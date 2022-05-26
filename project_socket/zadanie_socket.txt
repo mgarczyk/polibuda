@@ -1,0 +1,18 @@
+IDEA JEST TAKA, ŻE TO SĄ DWA OSOBNE PROJEKTY.
+
+SERWER:
+1) Nasłuch.
+2) Nie dobre hasło (czekaj na dobre).
+3) Podajemy ścieżkę do pliku.
+4) Wyślij bajt po bajcie ten plik do klienta.
+5) Na serwerze po wysłaniu zamykamy socket odpowiedzialny za danego klienta.
+6) Słuchamy dalej.
+
+
+KLIENT:
+1) Hasło/kod dostępu (może haszownie jakieś?). Lista haseł na serwerze w formie pliku (hasze, można nie trzeba).
+2) Odbiór bajt po bajcie i zbudowanie z tego pliku.
+3) Po odebraniu zamykamy klienta. 
+4) Koniec.
+
+
