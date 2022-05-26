@@ -1,8 +1,5 @@
 import re
 def config():
-    host = "127.0.0.1"
-    port = 9999
-    """
     # IP adres
     while True:
         try:
@@ -24,5 +21,4 @@ def config():
                 break
         except ValueError:
             print("Podano nieprawidłowy numer portu")
-    """
     return host, port
