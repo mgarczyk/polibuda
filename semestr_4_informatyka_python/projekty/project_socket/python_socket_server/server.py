@@ -71,7 +71,11 @@ class Server:
             self.conn.sendall(bytes('404', 'UTF-8')) # Wysłyamy kod 404 - plik nie istnieje
 
 if __name__ == '__main__':
-   host, port = config.config()
-   Server = Server(host, port)
+   while True:
+       host, port = config.config()
+       try:
+            Server = Server(host, port)
+       except OSError:
+           print("[ERR] Żądany adres jest nieprawidłowy w tym kontekście, spróbuj ponownie")
 
 
