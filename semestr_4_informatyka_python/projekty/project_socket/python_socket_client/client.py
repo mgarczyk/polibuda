@@ -10,9 +10,13 @@ class Client_socket:
         self.host = host
         self.port = port
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as self.C_SOC: # używamy żeby nie musieć używać s.close() za każdym razem po przesłaniu danych, AF_inet, host jako adres IPv4, STOCK_STERAM, przesy łamy za pomocą TCP
-            self.C_SOC.connect((self.host, self.port))  # nawiązanie połączenia z serwerem (druga strona socketu)
-            self.authorization()
-            self.send_filename()
+            try:
+                self.C_SOC.connect((self.host, self.port))  # nawiązanie połączenia z serwerem (druga strona socketu)
+                self.authorization()
+                self.send_filename()
+            except TimeoutError or ConnectionRefusedError:
+                print("[ERR] Próba połączenia nie powiodła się, ponieważ połączona strona nie odpowiedziała poprawnie po ustalonym okresie czasu lub utworzone połączenie nie powiodło się, ponieważ połączony host nie odpowiedział")
+
 
 
     def authorization(self):
