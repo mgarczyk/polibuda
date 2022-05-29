@@ -14,7 +14,7 @@ class Owner:
             try:
                 choose = str(input("Czy chcesz pobrać dane z bazy czy stworzyć nowy obiekt? "
                                    "\n/select - pobierz z bazy"
-                                   "\n/create - stwórz i dodaj nowy do bazy"
+                                   "\n/insert - stwórz i dodaj nowego właściciela do bazy lub podając pesel już istniejący w bazie zaaktualizuj dane właściciela"
                                    "\n"))
                 break
             except ValueError:
@@ -22,7 +22,7 @@ class Owner:
         #select i tworzenie obiektu z bazy na podstaiwe numeru rejestracyjnego
         if choose == "/select":
             self.select_single_owner()
-        elif choose == "/create":
+        elif choose == "/insert":
             self.create_object_and_insert_to_DB()
         else:
             print("Błędne dane.")
@@ -39,8 +39,8 @@ class Owner:
             except ValueError:
                 print("Podano błędne dane, spróbuj ponownie")
         query = """SELECT * FROM owners WHERE pesel = %s"""
-        cars_config.cursor.execute(query, (self.pesel,))
-        records = cars_config.cursor.fetchall()
+        owners_config.cursor.execute(query, (self.pesel,))
+        records = owners_config.cursor.fetchall()
         if records is []:
             print(f"Nie znaleziono pojazdów o numerze {self.pesel}")
         else:
@@ -80,21 +80,21 @@ class Owner:
         query = "INSERT INTO owners (pesel, first_name, last_name) VALUES (%s, %s, %s)" # te procenty ozanczają zmienne i ich rodzej %s to string, a %d to intiger
         record = (self.pesel, self.first_name, self.last_name)
         try:
-            cars_config.cursor.execute(query, record)
-            print(cars_config.cursor.rowcount, f"Dane dotycząceosoby o takim numerze pesel {self.pesel} zostały dodane do tabeli.")
-            cars_config.cnx.commit()
+            owners_config.cursor.execute(query, record)
+            print(owners_config.cursor.rowcount, f"Dane dotycząceosoby o takim numerze pesel {self.pesel} zostały dodane do tabeli.")
+            owners_config.cnx.commit()
             #pobranie informacji o samym ID pojazdu
             query = """SELECT owner_ID FROM owners WHERE pesel = %s"""
-            cars_config.cursor.execute(query, (self.pesel,))
-            records = cars_config.cursor.fetchone()
+            owners_config.cursor.execute(query, (self.pesel,))
+            records = owners_config.cursor.fetchone()
             for row in records:
                 self.owner_ID = row
         except mysql.connector.IntegrityError as err:  #jeżeli dany numer peseljest zajęty robimy update lub nie
-            self.update_car(record)
+            self.update_owner()
 
 
 
-    def update_car(self, record):
+    def update_owner(self):
         while True:
             try:
                 choose = str(input("Osoba takim numerze pesel już istnieje, czy chcesz zaaktualizować dane? Podaj Y jeżeli tak lub N jeżeli nie."))
@@ -107,13 +107,13 @@ class Owner:
             query = "UPDATE owners SET  pesel = %s, first_name = %s, last_name = %s WHERE (pesel = %s)" #updateujemy wiersz zawierający podany numer pesel
             record = (self.pesel, self.first_name, self.last_name, self.pesel)
             try:
-                cars_config.cursor.execute(query, record)
-                print(cars_config.cursor.rowcount, f"Dane dotyczące osoby o numerze pesel {self.pesel} zostały zaaktualizowane.")
-                cars_config.cnx.commit()
+                owners_config.cursor.execute(query, record)
+                print(owners_config.cursor.rowcount, f"Dane dotyczące osoby o numerze pesel {self.pesel} zostały zaaktualizowane.")
+                owners_config.cnx.commit()
                 #pobranie informacji o samym ID pojazdu
                 query = """SELECT owner_ID FROM owners WHERE pesel = %s"""
-                cars_config.cursor.execute(query, (self.pesel,))
-                records = cars_config.cursor.fetchone()
+                owners_config.cursor.execute(query, (self.pesel,))
+                records = owners_config.cursor.fetchone()
                 for row in records:
                     self.owner_ID = row
                 self.delete_copy_after_update_or_select() #teraz usuwamy stary obiekt o numerze rejestracyjnym takim samym jak ten obiekt w którym jesteśmy, zadziała bo stary obiekt jest wcześniej na liście niż ten aktralny
@@ -141,7 +141,7 @@ class Owner:
 
 if __name__ == '__main__':
 
-    cars_config = config.configuration()  #obiekt który jest jakby naszą bazą - z pliku cars_DB_handler.py, zaiera selecty i wyświetlanie + inserty
+    owners_config = config.configuration()  #obiekt który jest jakby naszą bazą - z pliku cars_DB_handler.py, zaiera selecty i wyświetlanie + inserty
     #pusta tablica na obiekty cars
     owners_list = []
     while True:

@@ -14,7 +14,7 @@ class Car:
             try:
                 choose = str(input("Czy chcesz pobrać dane z bazy czy stworzyć nowy obiekt? "
                                    "\n/select - pobierz z bazy"
-                                   "\n/create - stwórz i dodaj nowy do bazy"
+                                   "\n/insert - stwórz i dodaj nowy pojazd  do bazy lub podaj numer rejestracyjny już istniejącego pojazdu i zaakutalizuj jego dane"
                                    "\n"))
                 break
             except ValueError:
@@ -22,7 +22,7 @@ class Car:
         #select i tworzenie obiektu z bazy na podstaiwe numeru rejestracyjnego
         if choose == "/select":
             self.select_single_car()
-        elif choose == "/create":
+        elif choose == "/insert":
             self.create_object_and_insert_to_DB()
         else:
             print("Błędne dane.")
@@ -113,11 +113,11 @@ class Car:
             for row in records:
                 self.car_ID = row
         except mysql.connector.IntegrityError as err:  #jeżeli dany numer rejestracyjny jest zajęty robimy update lub nie
-            self.update_car(record)
+            self.update_car()
 
 
 
-    def update_car(self, record):
+    def update_car(self):
         while True:
             try:
                 choose = str(input("Pojazd o takim numerze rejestracyjnym już istnieje, czy chcesz zaaktualizować dane? Podaj Y jeżeli tak lub N jeżeli nie."))
@@ -173,7 +173,6 @@ if __name__ == '__main__':
     # pdb.set_trace() # - uruchamia debbuger pythona, linia po linii można sprawdzić czy wszystko git bo ten pycharmowy nie zawsze działa (żeby przejść dalej klikamy n->Enter)
     cars_list = []
     while True:
-        choose = 'abc'
         while True:
             try:
                 choose = str(input("Czy chcesz utworzyć kolejny obiekt? Y/N: "))
@@ -184,6 +183,8 @@ if __name__ == '__main__':
             cars_list.append(Car())
             for C in cars_list:
                 C.print_car()
+            cars_list[0].mark = 'BMW'
+            cars_list[0].update_car()
         elif choose == 'N':
             for C in cars_list:
                 C.print_car()
