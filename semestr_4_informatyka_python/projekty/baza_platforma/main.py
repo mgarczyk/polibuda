@@ -1,19 +1,24 @@
 
 import datetime
 from dateutil.relativedelta import relativedelta
+import pesel_utils
 
 class platform:
     def __init__(self):
         print("Platforma: ")
-        self.name = input("Podaj nazwe: ")
-        self.address = input("Podaj adres: ")
+        while True:
+            try:
+                self.name = str(input("Podaj nazwe: "))
+                self.address = str(input("Podaj adres: "))
+                break
+            except ValueError:
+                print("Podano błędne dane.")
 
         #listy
         self.Teachers = []
         self.Courses = []
         self.Students  = []
-
-                                                                                # dodawanie nauczycieli na liste
+                                                                              # dodawanie nauczycieli na liste
         #podawanie ilości -  zabezpieczamy try...expcect
         while True:
             try:
@@ -24,10 +29,7 @@ class platform:
         #pętla dodająca nauczycieli do tablicy
         for i in range(number_of_teachers):
             self.Teachers.append(teacher())
-
-
-
-                                                                               # dodawanie kursow  na liste
+                                                                             # dodawanie kursow  na liste
         while True:
             try:
                 number_of_courses = int(input("Podaj liczbe kursów: "))
@@ -38,8 +40,6 @@ class platform:
         for i in range(number_of_courses):
             self.Courses.append(course(self.Teachers))
 
-
-
         while True:                                                           # dodawanie studentów  na liste
             try:
                 number_of_students = int(input("Podaj liczbe studentów: "))
@@ -49,8 +49,6 @@ class platform:
         #dodawanie
         for i in range(number_of_students):
             self.Students.append(student(self.Courses))
-
-
 
 
     #wypisanie wszystkiego
@@ -167,12 +165,25 @@ class platform:
 
 class teacher:
     def __init__(self, pesel=""):
-        if pesel == "":                                                                             #sytułacja gdy tworzymy nauczyciela w konstruktowrze kursu (czyli znamy PESEL i nie trzeba go podawć jescze raz)
-            self.pesel = input("Podaj pesel: ")
+        if pesel == "":                                                                             #sytuacja gdy tworzymy nauczyciela w konstruktowrze kursu (czyli znamy PESEL i nie trzeba go podawć jescze raz)
+            while True:
+                try:
+                    self.pesel = str(input("Podaj pesel: "))
+                    if pesel_utils.is_valid(self.pesel):
+                        break
+                    else:
+                        raise ValueError
+                except ValueError:
+                    print("Podano błędny numer pesel.")
         else:
             self.pesel = pesel
-        self.email = input("Podaj email: ")
-        self.degree = input("Podaj stopien: ")
+        while True:
+            try:
+                self.email = str(input("Podaj email: "))
+                self.degree = str(input("Podaj stopien: "))
+                break
+            except ValueError:
+                print("Podano błędne dane.")
         self.Courses = []
 
     def get_data_teacher(self): #drukowanie z klasy
@@ -182,21 +193,35 @@ class teacher:
 
 class course:
     def __init__(self, Teachers): #tworzenie kursu
-        self.name = input("Nazwa: ")
-        self.semestr = int(input("Semestr: "))
+        while True:
+            try:
+                self.name = str(input("Nazwa: "))
+                self.semestr = int(input("Semestr: "))
+                break
+            except ValueError:
+                print("podano błędne dane.")
         self.teacher = None                                                                 #Tworzymy pusty obiekt typu nauczyciel
         self.Students = []                                                                  #studenci przypisani do tego kursu
-        pesel = input("Podaj pesel nauczyciela: ")
+        while True:
+            try:
+                pesel = str(input("Podaj pesel nauczyciela odpowiedzialnego za kurs: "))
+                if pesel_utils.is_valid(pesel):
+                    break
+                else:
+                    raise ValueError
+            except ValueError:
+                print("Podano błędny numer pesel.")
+
         #walidacja (sprawdzenie czy nauczyciela o takim peselu już nie ma w bazie)
         for T in Teachers:                                                                  #T to jest jeden z obiektów klasy nauczyciel (cały z peselem, emailem, i co tam jeszcze ma z tych co już stworzyliśmy wyżej)
-            if pesel == T.pesel:
+            if  pesel == T.pesel:
                 self.teacher = T                                                            #T staje się nauczycielem danego kursu
                 T.Courses.append(self)                                                      #Referencja T-> uczy w tym kursie-> ten kurs zsotaje przypisany do T
                 break
 
         #jezeli nie znaleziono takiego PESELU
         if  self.teacher is None:                                                           #jeśli nie znaleizono takeigo peselu to tworzymy nowego nauczyciela
-            self.teacher = teacher(pesel)                                                   #stwórz nowego nauczyciela, ale jego pesel ustaw taki sam jak user już wpisał
+            self.teacher = teacher(pesel)                                              #stwórz nowego nauczyciela, ale jego pesel ustaw taki sam jak user już wpisał
             self.teacher.Courses.append(self)
             Teachers.append(self.teacher)                                                   #dodaj tego nauczyciela na listę naucztcieli
 
@@ -215,15 +240,29 @@ class course:
 
 class student:
     def __init__(self, Courses):                                                          #tu są kursy ogólne (wszytkie)
-        self.pesel = input("Podaj pesel: ")
-        self.email = input("Podaj email: ")
-        self.semestr = int(input("Podaj semsetr: "))
+        while True:
+            try:
+                self.pesel = str(input("Podaj pesel: "))
+                if pesel_utils.is_valid(self.pesel):
+                    break
+                else:
+                    raise ValueError
+            except ValueError:
+                print("Podano błędny numer pesel.")
+
+        while True:
+            try:
+                self.email = str(input("Podaj email: "))
+                self.semestr = int(input("Podaj semsetr: "))
+                break
+            except ValueError:
+                print("Błędnen dane.")
         self.Courses = []                                                                 #to są kursy tego studenta
         self.Marks = {}                                                                   #słownik z ocenami studenta (żeby można rozpoznać kurs) np. polski: [3,4,5], angielski:[5,2,1] itd.
         #dodawanie kursów studenta                                                        #poniższa instrukacja sprawdzi czy user podał wartość int, a jak nie to pozowli spróbować ponownie zamiast zepsuć program
         while True:
             try:
-                number_of_courses = int(input("Podaj liczbe kursów: "))
+                number_of_courses = int(input("Podaj liczbe kursów studenta: "))
                 break
             except ValueError:
                 print("Spróbuj ponownie, podaj liczbę całkowitą: ")
@@ -378,13 +417,26 @@ if __name__ == '__main__':
         elif choose_wisely == "/add_S_marks":
             platform_1.add_marks_of_Students()
         elif choose_wisely == "/avg_P":
-            platform_1.get_avarge_grade_of_platofrm()
+            try:
+                platform_1.get_avarge_grade_of_platofrm()
+            except ZeroDivisionError:
+                print("Najpierw podaj oceny")
         elif choose_wisely == "/avg_all_S":
-            platform_1.get_avarge_grade_of_Students()
+            try:
+                platform_1.get_avarge_grade_of_Students()
+            except ZeroDivisionError:
+                print("Najpierw podaj oceny")
         elif choose_wisely == "/avg_S":
-            platform_1.get_avarage_grade_of_student()
+            try:
+                platform_1.get_avarage_grade_of_student()
+            except ZeroDivisionError:
+                print("Najpierw podaj oceny")
         elif choose_wisely == "/avg_C":
-            platform_1.get_avarage_of_course()
+            try:
+                platform_1.get_avarage_of_course()
+            except ZeroDivisionError:
+                print("Najpierw podaj oceny")
+
         else:
             print("Błąd")
         again = input("Jeśli chcesz kontynuować, podaj Y, jeśli nie coś innego\n")
