@@ -1,0 +1,24 @@
+1.Dwa programy / projekty:
+- program weryfikujący klienta
+- aplikacja klienta
+Aplikacja pyta usera o login i hasło. Następnie te dane wysyłane są przez socket do programu weryfikującego klienta.
+Gdy w bazie danych(plik txt chyba, że komuś łatwiej SQL) znaleziono tego usera po loginie i haśle program weryfikujący odsyła stosowna informację.
+Użytkownicy wpisywani są do bazy "ręcznie" poprzez edycje pliku txt / SQL insert poza programem.
+W przypadku gdy nie znaleziono danego usera program weryfikujący też wysyła odpowiedni komunikat który zabroni aplikacji klienta przejść dalej
+Hasła i loginy storowane w plaintextcie.
+Gdy strona klienta zinterpretuje, że login się nie udał to pyta usera o login i hasło aż do skutku
+Gdy login się udał -> punkt 2.
+2.(po stronie klienta)
+-każdy user ma swoj folder tworzony przy pierwszym udanym loginie
+-po zalogowaniu user jest pytany o to co chce zrobić "co chcesz zrobić? store text, store image, show files, inspect {file}, exit?"
+-zalogowany user moze tworzyc notatki txt i wrzucac obrazki do swojego folderu (podajac sciezke):
+	- komenda store text - prosi o podanie nazwy pliku txt do utworzenia a nastepnie o podanie jego zawartości. Następnie plik jest zapisywany w folderze usera
+	- komenda store image - prosi o podanie ścieżki do obrazka znajdującego się na PC. Obrazek następnie ejst zapisywany w folderze usera 
+
+-zalogowany user moze uzyc komendy "show files" aby wyświetlic wszystkie nazwy plików w folderze, zadbaj o to aby było wiadomo czy plik jest obrazkiem czy txt
+
+-zalogowany user może użyć komendy "inspect {filename}" aby odczytać plik. jesli jest to txt drukujemy jego zawartość w terminalu, jeśli obrazek wyświetlamy go:
+zawartosc pliku ... to : ..........
+
+- po wykonaniu dowolnej komendy poza exit user jest ponownie pytany o to co chce zrobic.
+ Jeżeli wykonanie komendy się udało dzieje się to co opisane wyżej, jeżeli nie to user jest informowany o błędzie/braku pliku etc. Exit zamyka program.
