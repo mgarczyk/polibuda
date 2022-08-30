@@ -9,11 +9,14 @@ class PythonSnake:
         pygame.quit()
 
     def GameLoop(self):
-        self.PlayingGame = True
-        while self.PlayingGame:
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    self.PlayingGame = False
+        self.StillPlaying = True
+        while self.StillPlaying:
+            self.DidUserStillPlaying()
+
+    def DidUserStillPlaying(self):
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                self.StillPlaying = False
 
 
 StartSnake = PythonSnake()
