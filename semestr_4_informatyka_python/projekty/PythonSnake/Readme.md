@@ -3,7 +3,7 @@ Prosty projekt mający za zadanie zapoznanie z podstawowymi możliwościami bibl
 Cel jest realizowany poprzez implementację gry Snake przy pomocy tej bibloteki.
 
 
-#Istotne informacje na temat szczegółów snake'a:
+Istotne informacje na temat szczegółów snake'a:
 
 1) Cały czas patrzymy na pozycję głowy węża to ona jest śledzona, jej koordynaty są zapisywane do tablicy snake_body.
 2) Na podstawie jej aktualnej pozycji, poprzednich znanych pozycji oraz prawdziwej długośći węża (len_of_snake) możemy go narysować.
