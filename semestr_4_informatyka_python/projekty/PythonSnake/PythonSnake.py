@@ -23,7 +23,6 @@ class PythonSnake:
         self.snake_speed = 50
         pygame.display.set_caption('PythonSnake')
         self.game_loop()
-        pygame.quit()
 
     def game_loop(self):
         self.starting_parameters()
@@ -38,6 +37,7 @@ class PythonSnake:
             self.clock.tick(25)
             pygame.display.update()
 
+
     def starting_parameters(self):
         self.game_over = False
         self.close_game = False
@@ -50,8 +50,6 @@ class PythonSnake:
         self.len_of_snake = 1
         self.points = 0
         PythonSnakeMusic.play_background_music()
-
-
 
     def event_listener(self):
         for event in pygame.event.get():
@@ -87,13 +85,12 @@ class PythonSnake:
         while self.close_game:
             self.window_size.fill(BLACK)
             self.losing_message()
-            pygame.display.update()
             self.closing_listener()
+            pygame.display.update()
 
     def losing_message(self):
         self.lose_message = self.font_style.render('You lose! Press Q to quit or R to restart.', True, RED)
         self.window_size.blit(self.lose_message, [WIDTH/3, HEIGHT/2])
-        pygame.display.update()
 
     def closing_listener(self):
         for event in pygame.event.get():
@@ -102,7 +99,7 @@ class PythonSnake:
                     self.game_over = True
                     self.close_game = False
                 if event.key == pygame.K_r:
-                    self.game_loop()
+                   self.starting_parameters()
 
     # Cały czas patrzymy na pozycję głowy węża to ona jest śledzona, jej koordynaty są zapisywane do tablicy snake_body.
     # Na podstawie jej aktualnej pozycji, poprzednich znanych pozycji oraz prawdziwej długośći węża (len_of_snake) możemy go narysować.
@@ -113,7 +110,7 @@ class PythonSnake:
         self.snake_face = [self.actual_x, self.actual_y]
         self.snake_body.append(self.snake_face)
         self.moving_snake()
-        print(self.snake_body)
+        #print(self.snake_body)
         self.eating_yourself()
         self.draw_snake()
 
@@ -156,5 +153,5 @@ class PythonSnake:
         pygame.display.update()
 
 
+
 StartSnake = PythonSnake()
-quit()
