@@ -3,10 +3,14 @@ Prosty projekt mający za zadanie zapoznanie z podstawowymi możliwościami bibl
 Cel jest realizowany poprzez implementację gry Snake przy pomocy tej bibloteki.
 
 
-Istotne informacje na temat szczegółów snake'a:
+#Istotne informacje na temat szczegółów snake'a:
 
 1) Cały czas patrzymy na pozycję głowy węża to ona jest śledzona, jej koordynaty są zapisywane do tablicy snake_body.
 2) Na podstawie jej aktualnej pozycji, poprzednich znanych pozycji oraz prawdziwej długośći węża (len_of_snake) możemy go narysować.
-3) Gdy długość snake_body (tablicy z aktualną oraz poprzednimi koordynatami głowy) przekroczy, rzeczywistą długość węża,
+3) Mając poprzednie pozycje głowy, możemy narysować ciało węża.
+4) Gdy długość snake_body (tablicy z aktualną oraz poprzednimi koordynatami głowy) przekroczy, reczywsitą długość węża,
 należy usunąć pierszy elemnt z tej tablicy (jest to de facto obszar kratka za ostatnim blokiem reperzentującym ciało
 węża) i narysować ponownie, co przy odpowiednim odświeżaniu (FPS) wygląda jak ruch.
+
+#Muzyka
+Music by <a href="https://pixabay.com/users/music_for_videos-26992513/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=music&amp;utm_content=110855">Music_For_Videos</a> from <a href="https://pixabay.com//?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=music&amp;utm_content=110855">Pixabay</a>
