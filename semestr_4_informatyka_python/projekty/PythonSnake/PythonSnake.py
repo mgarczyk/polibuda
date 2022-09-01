@@ -110,7 +110,6 @@ class PythonSnake:
         self.snake_face = [self.actual_x, self.actual_y]
         self.snake_body.append(self.snake_face)
         self.moving_snake()
-        #print(self.snake_body)
         self.eating_yourself()
         self.draw_snake()
 
