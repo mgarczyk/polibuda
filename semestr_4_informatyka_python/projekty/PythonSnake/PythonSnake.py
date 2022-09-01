@@ -1,15 +1,14 @@
 #IMPORTS
 import pygame
-import time
 import random
+import PythonSnakeMusic
 
 #CONSTANTS
 ORANGE = (204, 85, 0)
-RED = (255, 0, 0)
-BLUE = (0, 0, 255)
-GREEN = (0,255,0)
-WHITE = (255, 255, 255)
+LIGHTYELLOW = (255, 255, 153)
+OLDLCDGREEN =  (168, 198, 78)
 BLACK = (0, 0, 0)
+RED = (255, 0, 0)
 WIDTH = 800
 HEIGHT = 600
 
@@ -35,7 +34,8 @@ class PythonSnake:
             self.create_snake()
             self.draw_food()
             self.eating_food()
-            self.clock.tick(30)
+            self.earning_points_message()
+            self.clock.tick(25)
             pygame.display.update()
 
     def starting_parameters(self):
@@ -48,6 +48,9 @@ class PythonSnake:
         self.food_coordinates() # starting food coordiantes
         self.snake_body = []
         self.len_of_snake = 1
+        self.points = 0
+        PythonSnakeMusic.play_background_music()
+
 
 
     def event_listener(self):
@@ -78,6 +81,7 @@ class PythonSnake:
     def exceeding_dimensions(self):
         if self.actual_x >= WIDTH or self.actual_x < 0 or self.actual_y >= HEIGHT or self.actual_y < 0:
             self.close_game = True
+            PythonSnakeMusic.playing_exceeding_sound()
 
     def closing_game(self): # Po przegraniu gry wyświetlamy widomość na ekranie i czekamy na działanie użytowkika (reset lub zakończenie gry)
         while self.close_game:
@@ -123,12 +127,13 @@ class PythonSnake:
     def eating_yourself(self):
         for block in self.snake_body[:-1]:
             if block == self.snake_face:  # Sytuacja gdy głowa snake'a spotka się z fragmentem jego ciała (przegrana).
+                PythonSnakeMusic.playing_eating_yourself_sound()
                 self.close_game = True
 
     def draw_snake(self):
-        self.window_size.fill(BLACK)
+        self.window_size.fill(OLDLCDGREEN) # Przed narysowaniem węża należy wyczyścić całą planszę, innaczej każdy punkt przez który przeszła głowa węża byłby w jego kolorze do końca gry.
         for block in self.snake_body:
-            pygame.draw.rect(self.window_size, GREEN, pygame.Rect(block[0], block[1], 10, 10))
+            pygame.draw.rect(self.window_size, LIGHTYELLOW, pygame.Rect(block[0], block[1], 10, 10))
 
     def draw_food(self):
         pygame.draw.rect(self.window_size, ORANGE, [self.food_x, self.food_y, self.snake_block, self.snake_block])
@@ -138,10 +143,18 @@ class PythonSnake:
             print("Dobre, pomarańczowe.")
             self.food_coordinates()
             self.len_of_snake += 1
+            self.points += 10
+            PythonSnakeMusic.playing_eating_sound()
 
     def food_coordinates(self):
         self.food_x = round(random.randrange(0, WIDTH - self.snake_block) / 20) * 10
         self.food_y = round(random.randrange(0, WIDTH - self.snake_block) / 20) * 10
+
+    def earning_points_message(self):
+        self.earning_messagew = self.font_style.render(f'Your points: {self.points}', True, LIGHTYELLOW)
+        self.window_size.blit(self.earning_messagew, [WIDTH / 35, HEIGHT / 20])
+        pygame.display.update()
+
 
 StartSnake = PythonSnake()
 quit()
