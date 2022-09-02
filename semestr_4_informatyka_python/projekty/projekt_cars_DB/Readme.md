@@ -13,7 +13,7 @@ include in the PESEL number (date of birth, age, gender).
 - The user is to be able to enter both the vehicle and the user into the base, we are also adding the display.
 The pesel_utils library was also used to check PESEL numbers.
 
-Cars_DB_handler.py module
+- Cars_DB_handler.py module
 
 
 # Part 2:
@@ -24,7 +24,7 @@ The methods are the same for both:
 - Config with database, can be dumped to another file type consfig.py
 - Safe method - which will save the given object from the class car, insert or update the object into the database.
 
-Example
+# Example
 
 print (list[0].brand)   # we get the output 'foo'
 
@@ -32,4 +32,6 @@ list[0] = 'bar'
 
 list[0].safe()  # will change car brand from 'foo' to 'bar'
 
-Cars.py, Owners.py modules
+- Cars.py module
+- Owners.py module
+
