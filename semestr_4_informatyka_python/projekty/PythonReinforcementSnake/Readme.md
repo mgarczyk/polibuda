@@ -1,7 +1,7 @@
 # Description
 A simple project aimed at introducing you to the possibilities of reinforcement learning (RL), one
-with machine learning methods. The project is based on the snake game and an attempt to 'teach' a comupter as in
-play this game. The model is designed based on the Pytorch library.
+with machine learning methods. The project is based on the snake game and an attempt to 'teach' a comupter how to play 
+this game. The model is designed based on the Pytorch library.
 
 
 # Relevant information on details:
