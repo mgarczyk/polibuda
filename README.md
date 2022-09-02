@@ -5,7 +5,7 @@ From scratch, through algorithms, data structures, data visualization, for more 
 
 # Technologies: 
 - ocatave/matlab
-- C/C ++
+- C/C++
 - python
 - jupyter notebook
 - assembler
