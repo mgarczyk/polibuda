@@ -1,4 +1,3 @@
-# Description
 # EN
 
 Various applications, projects made during E&T (Electronics and Telecommunications) studies at the Poznań University of Technology.
