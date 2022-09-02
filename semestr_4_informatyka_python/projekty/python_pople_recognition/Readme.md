@@ -4,10 +4,12 @@ The application recognizes whether there is a human in the given photo, compared
 
 # Algorithm
 
-- We assume that the size of the image is always the same (we should resize all pictures to some constant size)
+- We have to create the dataset with examples. 
 
-- We check the similarity (how many % of the pixels in our picture agree with the examples of the dataset (by RGB colors), with individual colors). OpenCv Library + -80% pixels to count that there is git, every pixel + -10%, firstly we create our own method that compare whole photo pixel by pixel.
+- Then assume that the size of the image is always the same (we should resize all pictures to some constant size)
 
+- Firstly we should create the method that check the similarity (how many of the pixels in our picture agree with the same pixels on the pictures from the dataset (by RGB colors)). 
+- 
 - Then we use RMSE method.
 
 - And SSIM method.
