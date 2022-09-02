@@ -12,5 +12,5 @@ The goal is achieved by implementing the Snake game with the help of this librar
 the first element should be removed from this table (it is in fact the grid area behind the last block repeating the body
 snake) and redraw what looks like motion with proper refresh rate (FPS).
 
-#Music
+# Music
 Music by <a href="https://pixabay.com/users/music_for_videos-26992513/?Jsource=link-attribution&amp; Matchmedium=referral&amp; Music_For_Videos </a> from <a href = "https://pixabay.com//?Jsource=link-attribution&amp;Jsmedium=referral&amp;Jcampaign=music&amp;Jcontent=110855"> Pixabay </a>
