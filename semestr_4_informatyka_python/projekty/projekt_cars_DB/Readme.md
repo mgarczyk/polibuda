@@ -25,6 +25,7 @@ The methods are the same for both:
 - Safe method - which will save the given object from the class car, insert or update the object into the database.
 
 Example
+
 print (list[0].brand) # we get the output 'foo'
 
 list[0] = 'bar'
