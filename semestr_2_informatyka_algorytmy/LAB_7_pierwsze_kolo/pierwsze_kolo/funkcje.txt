@@ -1,7 +1,0 @@
-#include <algorithm>
-sort(nazwa tablicy, nazwa tablicy + ilość elemntów>
-#include <cctype>
-tolower(znak)
-toupper(znak)
-isalpha(znak)
-isdigit(znak)
