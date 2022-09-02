@@ -12,7 +12,7 @@ The application recognizes whether there is a human in the given photo, compared
 
 - And SSIM method.
 
-- If a given picture is more than 80% correct, then the method gives as true value.
+- If a given picture is more than 80% correct, then the method return true value.
 
 - Finally, assuming that, for example, 2/3 methods return that the picture is ok, then we write it to the user and add the given photo to the dataset
 
