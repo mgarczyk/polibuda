@@ -9,7 +9,7 @@ The application recognizes whether there is a human in the given photo, compared
 - Then assume that the size of the image is always the same (we should resize all pictures to some constant size)
 
 - Firstly we should create the method that check the similarity (how many of the pixels in our picture agree with the same pixels on the pictures from the dataset (by RGB colors)). 
-- 
+
 - Then we use RMSE method.
 
 - And SSIM method.
