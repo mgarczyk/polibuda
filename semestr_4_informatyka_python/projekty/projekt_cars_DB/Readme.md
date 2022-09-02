@@ -12,8 +12,7 @@ include in the PESEL number (date of birth, age, gender).
 -Enter the rest of the data using a Python script, using the sql_connector_puthon library.
 - The user is to be able to enter both the vehicle and the user into the base, we are also adding the display.
 The pesel_utils library was also used to check PESEL numbers.
-
-- Cars_DB_handler.py module
+Cars_DB_handler.py module
 
 
 # Part 2:
@@ -32,6 +31,6 @@ list[0] = 'bar'
 
 list[0].safe()  # will change car brand from 'foo' to 'bar'
 
-- Cars.py module
-- Owners.py module
+Cars.py module
+Owners.py module
 
