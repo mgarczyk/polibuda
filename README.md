@@ -2,7 +2,7 @@
 
 Various applications, projects made during E&T (Electronics and Telecommunications) studies at the Poznań University of Technology.
 
-From scratch, through algorithms, data structures, data visualization, for more interesting projects with databases, API support, simple games, RL (Machine Learning), statistics. DSP (Digital Signal Processing). Up to embedded systems and learning how to use microprocessors and microcontrollers to create useful electronic devices for everyday use. 
+From scratch, through algorithms, data structures, data visualization, for more interesting projects with databases, API support, simple games, RL (Machine learning), statistics. DSP (Digital Signal Processing). Up to embedded systems and learning how to use microprocessors and microcontrollers to create useful electronic devices for everyday use. 
 
 # PL
 
