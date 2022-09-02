@@ -24,11 +24,11 @@ The methods are the same for both:
 - Config with database, can be dumped to another file type consfig.py
 - Safe method - which will save the given object from the class car, insert or update the object into the database.
 
-//Example
+Example
 print (list[0].brand) # we get the output 'foo'
-<br/>
+
 list[0] = 'bar'
-</br>
+
 list[0].safe() -> will change car brand from 'foo' to 'bar'
 
 Cars.py, Owners.py modules
