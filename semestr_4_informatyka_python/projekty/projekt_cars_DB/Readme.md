@@ -26,7 +26,9 @@ The methods are the same for both:
 
 //Example
 print (list[0].brand) # we get the output 'foo'
+<br/>
 list[0] = 'bar'
+</br>
 list[0].safe() -> will change car brand from 'foo' to 'bar'
 
 Cars.py, Owners.py modules
