@@ -8,4 +8,4 @@ From scratch, through algorithms, data structures, data visualization, for more 
 - C/C++
 - python
 - jupyter notebook
-- assembler
+- assembler (8051)
