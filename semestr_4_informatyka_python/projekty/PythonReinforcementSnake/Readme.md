@@ -22,7 +22,7 @@ Input states:
 
 Output states:
 1) Eat food (Reward)
-2) Lost (Penalty)
+2) Game over (Penalty)
 3) Different situation (Neutral)
 
 # Music
