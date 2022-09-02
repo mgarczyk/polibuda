@@ -18,15 +18,15 @@
 
 - login success - points 2.
 2.
--Each user has its own folder created during registration
+- Each user has its own folder created during registration
 
--after logging in, the user is asked what he wants to do "what do you want to do? store text, store image, show files, inspect {file}, exit?"
+- after logging in, the user is asked what he wants to do "what do you want to do? store text, store image, show files, inspect {file}, exit?"
 
--logged user can create txt notes and put pictures in his folder (by entering the path):
+- logged user can create txt notes and put pictures in his folder (by entering the path):
 
--/store text command - asks for the name of the txt file to be created and then for its content. Then the file is saved in the user folder
+- /store text command - asks for the name of the txt file to be created and then for its content. Then the file is saved in the user folder
 
--/store image command - asks for the path to the image on the PC. The picture is then saved in the user's directory
+- /store image command - asks for the path to the image on the PC. The picture is then saved in the user's directory
 
 - logged user can use the command /show files to display all the names of files in a folder, make sure that it is known whether the file is an image or a txt
 
