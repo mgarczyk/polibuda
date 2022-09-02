@@ -6,5 +6,7 @@ with the edges with negative weights.
 
 # About the algorithm
 
-https://en.wikipedia.org/wiki/Bellman%E2%80%93Ford_algorithm
-https://eduinf.waw.pl/inf/alg/001_search/0138a.php
+<a href = https://en.wikipedia.org/wiki/Bellman%E2%80%93Ford_algorithm > Wiki Page </a>
+<br/>
+<a href = https://eduinf.waw.pl/inf/alg/001_search/0138a.php> More Info </a>
+
