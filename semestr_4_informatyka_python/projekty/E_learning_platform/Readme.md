@@ -3,6 +3,6 @@ The project allows you to create a database of the platform along with courses, 
 
 Libraries required:
 
--datetime (terminal / pip install datetime)
+- datetime (terminal / pip install datetime)
 
--dateuil (terminal / pip install dateuil)
+- dateuil (terminal / pip install dateuil)
