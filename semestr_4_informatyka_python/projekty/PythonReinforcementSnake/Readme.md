@@ -33,7 +33,7 @@ Output states:
   That module is a little bit modified version of module PythonSnakeGameAI.py that basically is the environment that
   our agent use to check outputs from neural network, to test is model is trained enough or not.
   
--Playing in that version of the game should gives us a good look at how the data that the agent receives from the model for game control.
+- Playing in that version of the game should gives us a good look at how the data that the agent receives from the model for game control.
 
 
 # Music
