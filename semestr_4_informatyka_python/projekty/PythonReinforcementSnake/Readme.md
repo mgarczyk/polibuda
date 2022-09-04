@@ -25,5 +25,13 @@ Output states:
 2) Lost (Penalty)
 3) Different situation (Neutral)
 
+# Trivia
+
+Module PythonSnakeGameAsAI.py gives you a chance to play the game from snake point of view.
+You need only two keys to steering snake movement A or left arrow to turn left and D or right arrow to turn right.
+That module is a little bit modified version of module PythonSnakeGameAI.py that basically is the environment that
+our agent use to check outputs from neural network, to test is model is trained enough or not.
+
+
 # Music
 Music by <a href="https://pixabay.com/users/music_for_videos-26992513/?Jsource=link-attribution&amp; Matchmedium=referral&amp; Music_For_Videos </a> from <a href = "https://pixabay.com//?Jsource=link-attribution&amp;Jsmedium=referral&amp;Jcampaign=music&amp;Jcontent=110855"> Pixabay </a>
