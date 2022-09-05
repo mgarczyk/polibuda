@@ -32,7 +32,7 @@ class PythonSnake:
 
     def starting_parameters_of_snake(self):
         self.game_over = False
-        self.reward = 0
+        self.score = 0
         self.frame_iteration = 0
         self.direction = Direction.RIGHT # starting direction
         self.actual_x = WIDTH / 2  # head  position in x axis
@@ -50,10 +50,10 @@ class PythonSnake:
     def game_step(self, action):
         self.frame_iteration += 1
         self.quit_event_listener()
-        if self.is_collision(): # zabezpieczamy się przed sytuacją w której snake ani nie zdobywa nagrody, ani kary
+        if self.is_collision():
             self.game_over = True
-            self.reward = -10
-            return  self.game_over, self.reward
+            self.score += -1
+            return self.game_over, self.score
         self.move_response(action)
         self.create_body()
         self.draw_food()
@@ -61,6 +61,7 @@ class PythonSnake:
         self.earned_reward_message()
         self.clock.tick(25)
         pygame.display.update()
+        return self.game_over, self.score
 
     def quit_event_listener(self):
         for event in pygame.event.get():
@@ -69,7 +70,7 @@ class PythonSnake:
                 self.game_over = True
 
 
-    def move_response(self, action): # Funkcja konwertuje akcje podjętą przez sieć neuronową, na interfejs gry
+    def move_response(self, action): # The function converts the action taken by the neural network into the game interface
         self.clock_wise = [Direction.RIGHT, Direction.DOWN, Direction.LEFT, Direction.UP]
         self.index = self.clock_wise.index(self.direction)
         self.choose_diretion(action)
@@ -77,11 +78,11 @@ class PythonSnake:
 
     def choose_diretion(self, action):
         if np.array_equal(action, [1, 0, 0]):
-            self.direction = self.clock_wise[self.index] # [1,0,0] -> Prosto (dalej w tym samym kierunku)
-        elif np.array_equal(action, [0, 1, 0]):  # [0,1,0] -> Skręt w prawo.
-            # W uproszczeniu sieć reaguje z perspektywy głowy węża.
-            # Np. poruszamy się w dół (indeks = 2), nowy indeks to (2+1)%4 = 3,
-            # snake skręca z naszej perspektywy w lewo, ale ze swojej w prawo, co jest odpowiednią reakcją środowiska na decyzję sieci neuronowej.
+            self.direction = self.clock_wise[self.index] # [1,0,0] -> Straight (further in the same direction)
+        elif np.array_equal(action, [0, 1, 0]):  # [0,1,0] -> Turn right.
+            # In simplified terms, the network reacts from the perspective of a snake's head.
+            # E.g. we move down (index = 2), the new index is (2 + 1)% 4 = 3,
+            # snake turns left from our perspective, but turns right from it's perspective, which is an appropriate reaction of the environment to the decision of the neural network.
             next_index = (self.index + 1) % 4
             self.direction = self.clock_wise[next_index]
         elif np.array_equal(action, [0, 0, 1]):
@@ -114,12 +115,12 @@ class PythonSnake:
 
     def eat_yourself(self):
         for block in self.snake_body[:-1]:
-            if block == self.snake_face:  # Sytuacja gdy głowa snake'a spotka się z fragmentem jego ciała (przegrana).
+            if block == self.snake_face:
                 return True
 
-    # Cały czas patrzymy na pozycję głowy węża to ona jest śledzona, jej koordynaty są zapisywane do tablicy snake_body.
-    # Na podstawie jej aktualnej pozycji, poprzednich znanych pozycji oraz prawdziwej długośći węża (len_of_snake) możemy go narysować.
-    # Mając poprzednie pozycje głowy, możemy narysować ciało węża.
+    # We look at the position of the snake's head all the time, it is tracked, its coordinates are saved to the snake_body array.
+    # Based on its current position, previous known positions and the true length of the snake (len_of_snake) we can draw it.
+    # Having the previous head positions, we can draw the body of the snake.
     def create_body(self):
         self.actual_y += self.y_change
         self.actual_x += self.x_change
@@ -128,15 +129,15 @@ class PythonSnake:
         self.move_animation()
         self.draw_body()
 
-    # Gdy długość snake_body (tablicy z aktualną oraz poprzednimi koordynatami głowy) przekroczy, reczywsitą długość węża,
-    # należy usunąć pierszy elemnt z tej tablicy (jest to de facto obszar kratka za ostatnim blokiem reperzentującym ciało
-    # węża i narysować ponownie, co przy odpowiednim odświeżaniu (FPS) wygląda jak ruch.
+    # When the length of the snake_body (the table with the current and previous head coordinates) exceeds the real length of the snake,
+    # the first element should be removed from this table (it is in fact the grid area behind the last block repeating the body
+    # snake and redraw what looks like motion when properly refreshed (FPS).
     def move_animation(self):
         if len(self.snake_body) > self.len_of_snake:
             del self.snake_body[0]
 
     def draw_body(self):
-        self.window_size.fill(OLDLCDGREEN) # Przed narysowaniem węża należy wyczyścić całą planszę, innaczej każdy punkt przez który przeszła głowa węża byłby w jego kolorze do końca gry.
+        self.window_size.fill(OLDLCDGREEN)  # Before drawing the snake, clear the entire board, otherwise every point the snake's head passed through would be in its color for the rest of the game.
         for block in self.snake_body:
             pygame.draw.rect(self.window_size, LIGHTYELLOW, pygame.Rect(block[0], block[1], 10, 10))
 
@@ -148,7 +149,7 @@ class PythonSnake:
             print("Dobre, pomarańczowe.")
             self.food_coordinates()
             self.len_of_snake += 1
-            self.reward += 10
+            self.score += 1
             PythonSnakeMusic.playing_eating_sound()
 
     def food_coordinates(self):
@@ -156,17 +157,11 @@ class PythonSnake:
         self.food_y = round(random.randrange(0, WIDTH - self.snake_block) / 20) * 10
 
     def earned_reward_message(self):
-        self.earning_messagew = self.font_style.render(f'Your points: {self.reward}', True, LIGHTYELLOW)
+        self.earning_messagew = self.font_style.render(f'Your points: {self.score}', True, LIGHTYELLOW)
         self.window_size.blit(self.earning_messagew, [WIDTH / 35, HEIGHT / 20])
         pygame.display.update()
 
 
-
-
-SnakeGame = PythonSnake()
-# game loop
-while not SnakeGame.game_over:
-        SnakeGame.game_step()
 
 
 
