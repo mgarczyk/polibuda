@@ -8,7 +8,7 @@ play this game. The model is designed based on the Pytorch library.
 
 Input states:
 
-1) Danger in front of the hose.
+1) Danger in front of the snake's head.
 2) Danger to the right side of the snake's head.
 3) Danger to the left of the snake's head.
 4) Change direction to the left.
