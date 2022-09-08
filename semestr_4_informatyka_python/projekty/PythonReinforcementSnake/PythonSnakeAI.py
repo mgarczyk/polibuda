@@ -5,7 +5,7 @@ import numpy as np
 
 
 pygame.init()
-font = pygame.font.SysFont('arial', 25)
+font = pygame.font.SysFont('Calibri', 25)
 
 class Direction(Enum):
     RIGHT = 1
@@ -20,9 +20,9 @@ BLUE2 = (0, 100, 255)
 BLACK = (0,0,0)
 ORANGE = (204, 85, 0)
 LIGHTYELLOW = (255, 255, 153)
-OLDLCDGREEN =  (168, 198, 78)
-SNAKE_BLOCK = 20
-SPEED = 40
+OLDLCDGREEN = (168, 198, 78)
+SNAKE_BLOCK = 10
+SPEED = 50
 
 
 class PythonSnake:
