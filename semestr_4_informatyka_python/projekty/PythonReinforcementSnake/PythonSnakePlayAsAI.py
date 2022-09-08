@@ -5,6 +5,7 @@ import numpy as np
 import math
 from enum import Enum
 import PythonSnakeMusic
+from collections import namedtuple
 
 
 ORANGE = (204, 85, 0)
@@ -28,9 +29,9 @@ class PythonSnake:
         self.font_style = pygame.font.SysFont('Calibri', 30)
         self.clock = pygame.time.Clock()
         pygame.display.set_caption('PythonSnake')
-        self.starting_parameters_of_snake()
+        self.set_start_parameters()
 
-    def starting_parameters_of_snake(self):
+    def set_start_parameters(self):
         self.game_over = False
         self.close_game = False
         self.reward = 0
@@ -42,7 +43,8 @@ class PythonSnake:
         self.snake_block = 10
         self.snake_speed = 50
         self.food_coordinates() # starting food coordiantes
-        self.snake_body = [[self.actual_x, self.actual_y]]
+        self.snake_head = (self.actual_x, self.actual_y)
+        self.snake_body  = [self.snake_head]
         self.frame_iteration = 0
         self.len_of_snake = 1
         PythonSnakeMusic.play_background_music()
@@ -115,20 +117,17 @@ class PythonSnake:
             self.x_change = 0
 
 
-    def is_collision(self):
-        if self.exceed_dimensions() or self.eat_yourself():
-            return True
-
-    def exceed_dimensions(self):
-        if self.actual_x >= WIDTH or self.actual_x < 0 or self.actual_y >= HEIGHT or self.actual_y < 0:
+    def is_collision(self, snake_head = None):
+        if snake_head is None:
+            snake_head = self.snake_head
+        if snake_head[0] >= WIDTH or snake_head[0] < 0 or snake_head[1] >= HEIGHT or snake_head[1] < 0:
             PythonSnakeMusic.playing_exceeding_sound()
             return True
-
-    def eat_yourself(self):
         for block in self.snake_body[:-1]:
-            if block == self.snake_face:  # Sytuacja gdy głowa snake'a spotka się z fragmentem jego ciała (przegrana).
+            if block == self.snake_head:
                 PythonSnakeMusic.playing_eating_yourself_sound()
                 return True
+        return False
 
 
     def closing_game(self): # Po przegraniu gry wyświetlamy widomość na ekranie i czekamy na działanie użytowkika (reset lub zakończenie gry)
@@ -149,7 +148,7 @@ class PythonSnake:
                     self.close_game = False # that end closing_game loop and screen
                     self.game_over = True   # then that end main loop that end the game
                 if event.key == pygame.K_r:
-                    self.starting_parameters_of_snake()
+                    self.set_start_parameters()
 
     # Cały czas patrzymy na pozycję głowy węża to ona jest śledzona, jej koordynaty są zapisywane do tablicy snake_body.
     # Na podstawie jej aktualnej pozycji, poprzednich znanych pozycji oraz prawdziwej długośći węża (len_of_snake) możemy go narysować.
@@ -157,8 +156,8 @@ class PythonSnake:
     def create_body(self):
         self.actual_y += self.y_change
         self.actual_x += self.x_change
-        self.snake_face = [self.actual_x, self.actual_y]
-        self.snake_body.append(self.snake_face)
+        self.snake_head = (self.actual_x, self.actual_y)
+        self.snake_body.append(self.snake_head)
         self.move_animation()
         self.draw_body()
 

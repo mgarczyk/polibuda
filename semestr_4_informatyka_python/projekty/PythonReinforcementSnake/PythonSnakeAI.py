@@ -1,82 +1,135 @@
-#IMPORTS
 import pygame
 import random
-import numpy as np
-import math
 from enum import Enum
-import PythonSnakeMusic
+from collections import namedtuple
+import numpy as np
 
 
-ORANGE = (204, 85, 0)
-LIGHTYELLOW = (255, 255, 153)
-OLDLCDGREEN =  (168, 198, 78)
-BLACK = (0, 0, 0)
-RED = (255, 0, 0)
-WIDTH = 800
-HEIGHT = 600
+pygame.init()
+font = pygame.font.SysFont('arial', 25)
 
 class Direction(Enum):
     RIGHT = 1
     LEFT = 2
-    UP  = 3
+    UP = 3
     DOWN = 4
 
-class PythonSnake:
-    def __init__(self):
-        pygame.init()
-        self.window_size = pygame.display.set_mode((WIDTH, HEIGHT))
-        self.font_style = pygame.font.SysFont('Calibri', 30)
-        self.clock = pygame.time.Clock()
-        pygame.display.set_caption('PythonSnake')
-        self.starting_parameters_of_snake()
+WHITE = (255, 255, 255)
+RED = (200,0,0)
+BLUE1 = (0, 0, 255)
+BLUE2 = (0, 100, 255)
+BLACK = (0,0,0)
+ORANGE = (204, 85, 0)
+LIGHTYELLOW = (255, 255, 153)
+OLDLCDGREEN =  (168, 198, 78)
+SNAKE_BLOCK = 20
+SPEED = 40
 
-    def starting_parameters_of_snake(self):
-        self.game_over = False
+
+class PythonSnake:
+
+    def __init__(self, w=640, h=480):
+        self.w = w
+        self.h = h
+        self.display = pygame.display.set_mode((self.w, self.h))
+        pygame.display.set_caption('Snake')
+        self.clock = pygame.time.Clock()
+        self.set_start_parameters()
+
+
+    def set_start_parameters(self):
+        self.direction = Direction.RIGHT
+        self.head = (self.w/2, self.h/2)
+        self.actual_x = self.head[0]
+        self.actual_y = self.head[1]
+        self.snake = [self.head,
+                      (self.actual_x - SNAKE_BLOCK, self.actual_y),
+                      (self.actual_x - (2 * SNAKE_BLOCK), self.actual_y)]
         self.score = 0
         self.frame_iteration = 0
-        self.direction = Direction.RIGHT # starting direction
-        self.actual_x = WIDTH / 2  # head  position in x axis
-        self.actual_y = HEIGHT / 2  # head position in y axis
-        self.x_change = 0
-        self.y_change = 0
-        self.snake_block = 10
-        self.snake_speed = 50
-        self.food_coordinates() # starting food coordiantes
-        self.snake_body = [[self.actual_x, self.actual_y]]
-        self.frame_iteration = 0
-        self.len_of_snake = 1
-        PythonSnakeMusic.play_background_music()
+        self.food = None
+        self.create_food()
+
+
+    def create_food(self):
+        food_x = random.randint(0, (self.w - SNAKE_BLOCK) // SNAKE_BLOCK) * SNAKE_BLOCK
+        food_y = random.randint(0, (self.h - SNAKE_BLOCK) // SNAKE_BLOCK) * SNAKE_BLOCK
+        self.food = (food_x, food_y)
+        if self.food in self.snake:
+            self.create_food()
 
     def game_step(self, action):
         self.frame_iteration += 1
-        self.quit_event_listener()
-        if self.is_collision():
-            self.game_over = True
-            self.score += -1
-            return self.game_over, self.score
-        self.move_response(action)
-        self.create_body()
-        self.draw_food()
-        self.eat_food()
-        self.earned_reward_message()
-        self.clock.tick(25)
-        pygame.display.update()
-        return self.game_over, self.score
+        self.quit_listener()
+        self.response_to_action(action)   # Refresh the head position.
+        self.snake.insert(0, self.head)
+        reward = 0
+        game_over = False
+        if self.is_collision() or self.end_if_too_much_frames_without_point():
+            game_over = True
+            reward = -10
+            return reward, game_over, self.score
+        if self.head == self.food:
+            self.score += 1
+            reward = 10
+            self.create_food()
+        else:
+            # Snake moves, after each movement we refresh the position of the head,
+            # and we must remember to remove the oldest known position,
+            # which is now behind his body and shouldn't be colored as the body.
+            self.snake.pop()
+        self.draw_game()
+        self.clock.tick(SPEED)
+        return reward, game_over, self.score
 
-    def quit_event_listener(self):
+    def quit_listener(self):
         for event in pygame.event.get():
-            self.event = event
-            if event.type == pygame.QUIT:  # QUIT event
-                self.game_over = True
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                quit()
 
+    def is_collision(self, snake_head = None):
+        if snake_head is None:
+            snake_head = self.head
+        x = snake_head[0]
+        y = snake_head[1]
+        if self.exceed_dimensions(x, y) or self.eat_yourself(snake_head):
+            return True
+        return False
 
-    def move_response(self, action): # The function converts the action taken by the neural network into the game interface
+    def exceed_dimensions(self, x, y):
+        if x > self.w - SNAKE_BLOCK or x < 0 or y > self.h - SNAKE_BLOCK or y < 0:
+            return True
+
+    def eat_yourself(self, snake_head):
+        if snake_head in self.snake[1:]:
+            return True
+
+    def end_if_too_much_frames_without_point(self):
+        if self.frame_iteration > 100*len(self.snake):
+            return True
+
+    def draw_game(self):
+        self.display.fill(OLDLCDGREEN)
+        for pt in self.snake:
+            x = pt[0]
+            y = pt[1]
+            pygame.draw.rect(self.display, LIGHTYELLOW, pygame.Rect(x, y, SNAKE_BLOCK, SNAKE_BLOCK))
+        pygame.draw.rect(self.display, ORANGE, pygame.Rect(self.food[0], self.food[1], SNAKE_BLOCK, SNAKE_BLOCK))
+        self.draw_score()
+
+    def draw_score(self):
+        text = font.render("Score: " + str(self.score), True, WHITE)
+        self.display.blit(text, [0, 0])
+        pygame.display.flip()
+
+    def response_to_action(self, action): # The function converts the action taken by the neural network into the game interface
         self.clock_wise = [Direction.RIGHT, Direction.DOWN, Direction.LEFT, Direction.UP]
         self.index = self.clock_wise.index(self.direction)
-        self.choose_diretion(action)
-        self.change_direction()
+        self.set_direction(action)
+        self.move_snake()
 
-    def choose_diretion(self, action):
+    def set_direction(self, action):
         if np.array_equal(action, [1, 0, 0]):
             self.direction = self.clock_wise[self.index] # [1,0,0] -> Straight (further in the same direction)
         elif np.array_equal(action, [0, 1, 0]):  # [0,1,0] -> Turn right.
@@ -90,79 +143,19 @@ class PythonSnake:
             self.direction = self.clock_wise[next_index]
             print(self.direction)
 
-    def change_direction(self):
-            if self.direction == Direction.LEFT:
-                self.x_change = -self.snake_block
-                self.y_change = 0
-            elif self.direction == Direction.RIGHT:
-                self.x_change = self.snake_block
-                self.y_change = 0
-            elif self.direction == Direction.DOWN:
-                self.y_change = self.snake_block
-                self.x_change = 0
-            elif self.direction == Direction.UP:
-                self.y_change = -self.snake_block
-                self.x_change = 0
+    # We look at the position of the snake's head all the time, it is tracked, its coordinates are saved to the snake array.
+    # Based on it current position, previous known positions (where now the body is) we can draw the snake.
+    # It's important only head postion is needed to draw snake.
 
-
-    def is_collision(self):
-        if self.exceed_dimensions() or self.eat_yourself():
-            return True
-
-    def exceed_dimensions(self):
-        if self.actual_x >= WIDTH or self.actual_x < 0 or self.actual_y >= HEIGHT or self.actual_y < 0:
-            return True
-
-    def eat_yourself(self):
-        for block in self.snake_body[:-1]:
-            if block == self.snake_face:
-                return True
-
-    # We look at the position of the snake's head all the time, it is tracked, its coordinates are saved to the snake_body array.
-    # Based on its current position, previous known positions and the true length of the snake (len_of_snake) we can draw it.
-    # Having the previous head positions, we can draw the body of the snake.
-    def create_body(self):
-        self.actual_y += self.y_change
-        self.actual_x += self.x_change
-        self.snake_face = [self.actual_x, self.actual_y]
-        self.snake_body.append(self.snake_face)
-        self.move_animation()
-        self.draw_body()
-
-    # When the length of the snake_body (the table with the current and previous head coordinates) exceeds the real length of the snake,
-    # the first element should be removed from this table (it is in fact the grid area behind the last block repeating the body
-    # snake and redraw what looks like motion when properly refreshed (FPS).
-    def move_animation(self):
-        if len(self.snake_body) > self.len_of_snake:
-            del self.snake_body[0]
-
-    def draw_body(self):
-        self.window_size.fill(OLDLCDGREEN)  # Before drawing the snake, clear the entire board, otherwise every point the snake's head passed through would be in its color for the rest of the game.
-        for block in self.snake_body:
-            pygame.draw.rect(self.window_size, LIGHTYELLOW, pygame.Rect(block[0], block[1], 10, 10))
-
-    def draw_food(self):
-        pygame.draw.rect(self.window_size, ORANGE, [self.food_x, self.food_y, self.snake_block, self.snake_block])
-
-    def eat_food(self):
-        if self.actual_x == self.food_x and self.actual_y == self.food_y:
-            print("Dobre, pomarańczowe.")
-            self.food_coordinates()
-            self.len_of_snake += 1
-            self.score += 1
-            PythonSnakeMusic.playing_eating_sound()
-
-    def food_coordinates(self):
-        self.food_x = round(random.randrange(0, WIDTH - self.snake_block) / 20) * 10
-        self.food_y = round(random.randrange(0, WIDTH - self.snake_block) / 20) * 10
-
-    def earned_reward_message(self):
-        self.earning_messagew = self.font_style.render(f'Your points: {self.score}', True, LIGHTYELLOW)
-        self.window_size.blit(self.earning_messagew, [WIDTH / 35, HEIGHT / 20])
-        pygame.display.update()
-
-
-
-
-
-
+    def move_snake(self):
+        self.actual_x = self.head[0]
+        self.actual_y = self.head[1]
+        if self.direction == Direction.RIGHT:
+            self.actual_x += SNAKE_BLOCK
+        elif self.direction == Direction.LEFT:
+            self.actual_x -= SNAKE_BLOCK
+        elif self.direction == Direction.DOWN:
+            self.actual_y += SNAKE_BLOCK
+        elif self.direction == Direction.UP:
+            self.actual_y -= SNAKE_BLOCK
+        self.head = (self.actual_x, self.actual_y)
