@@ -5,7 +5,7 @@ import numpy as np
 import math
 from enum import Enum
 import PythonSnakeMusic
-from collections import namedtuple
+
 
 
 ORANGE = (204, 85, 0)
