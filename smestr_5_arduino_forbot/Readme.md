@@ -24,4 +24,4 @@ The series is planned for 11 articles that cover the following topics:
     -Arduino Course - 11 - summary, QUIZ
 
 # Link
-<a href = https://forbot.pl/blog/kurs-arduino-podstawy-programowania-spis-tresci-kursu-id5290> Forbot Arduino course I </a>
+<a href = https://forbot.pl/blog/kurs-arduino-podstawy-programowania-spis-tresci-kursu-id5290> Forbot Arduino course - Part 1 </a>
