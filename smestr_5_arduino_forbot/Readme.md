@@ -8,9 +8,7 @@ A low-cost, simple platform that has millions of fans around the world. By doing
 programming itself.
 
 # Content
-Arduino course content
-
-- The series is planned for 11 articles that cover the following topics:
+The series is planned for 11 articles that cover the following topics:
     - Arduino course - 1 - Arduino basics and environment
     - Arduino course - 2 - programming basics, I/O ports
     - Arduino course - 3 - UART (communication with PC), variables
