@@ -19,4 +19,4 @@ Aż po systemy wbudowane jak Arduino oraz naukę obsługi i programowania mikrok
 - C/C++
 - python
 - jupyter notebook
-- assembler (8051)
+- Arduino
