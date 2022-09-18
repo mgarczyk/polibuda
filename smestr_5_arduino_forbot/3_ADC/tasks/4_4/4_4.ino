@@ -94,7 +94,7 @@ void loop()
         recived_data = (Serial.readStringUntil('\n')).toInt();
         if (recived_data >= 0 && recived_data <= 1023)
         {
-            if (recived_data == potentiometer_value)
+            if (recived_data >= potentiometer_value - 50 && recived_data <= potentiometer_value + 50) 
             {
                 won_game();
             }
