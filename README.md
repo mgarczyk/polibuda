@@ -15,8 +15,9 @@ Od podstaw, przez algorytmy, struktury danych, wizualizacje danych, po ciekawsze
 Aż po systemy wbudowane jak Arduino oraz naukę obsługi i programowania mikrokontrolerów w celu tworzenia użytecznych urządzeń elektronicznych codziennego użytku.
 
 # Technologies:
-- octave/matlab
+- Python
 - C/C++
-- python
-- jupyter notebook
+- Octave/Matlab
 - Arduino
+- Jupyter notebook
+
