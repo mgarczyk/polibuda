@@ -1,0 +1,23 @@
+Program działa w nieskończonej pętli w której użytkownik ma za każdym razem kilka opcji do wyboru[0.5]:
+	1. opcja create-user:
+		- użytkownik jest proszony o nazwe i hasło, i potwierdzenie hasła. 
+			- gdy nazwa jest zajęta  inforumujemy o tym użytkownika i prosimy o wpisanie innej LUB wracamy do wyboru opcji 
+			- hasło i jego powtórzenie muszą się zgadzać, jeżeli tak nie jest to informujemy o tym użytkownika i prosimy o ponowne podanie LUB wracamy do wyboru opcji 
+			- gdy nazwa jest unikalna i hasło zgadza się z powtórką to tworzymy folder o nazwie takiej samej jak nazwa użytkownika która podał I zapisujemy jego nazwe i hasz hasła w pliku users.txt.
+			 Hasz hasła tworzymy poprzez konkatenacje nazwy i jawnego hasła i użycie dowolnej funkcji haszującej 
+		po stworzeniu uzytkownika wracamy do wyboru opcji[4]
+	2. opcja view-file:
+		- użytkownik proszony jest o podanie swojej nazwy i hasła. Jeżeli dane nie zgadzaja się z wpisem w users.txt to jest o tym informowany i wraca do wyboru opcji,
+		 jeżeli się zgadzają to uzytkownik jest proszony o nazwe pliku z rozszerzeniem którego zawartość chce obejrzeć
+		- podanego pliku szukamy w folderze o nazwie zgodnej z nazwą usera. Jeżeli plik znajdziemy to:
+			- jeżeli jest to obrazek JPEG lub PNG to go wyświetlamy
+			- dla innego typu wyświetlamy jego zawartość w konsoli.
+		Po wyświetlneiu wracamy do wyboru opcji.[4]
+	3. opcja save-file:
+		- użytkownik proszony jest o podanie swojej nazwy i hasła. Jeżeli dane nie zgadzają się z wpisem w users.txt to jest o tym informowany i wraca do wyboru opcji,
+		 jeżeli się zgadzają to uzytkownik jest proszony o podanie ścieżki do pliku, którego zapisze w swoim katalogu. Prosze pamiętać o sprawdzeniu czy plik istnieje. 
+		 Jeżeli plik nie istnieje informujemy o tym usera i wracamy do wyboru opcji. Po udanym zapisie również wracamy do wyboru opcji [2]
+	4. opcja list-files :
+		- użytkownik jest proszony o podanie nazwy folderu z którego chce otrzymać listę znajdujących się tam plików [1]
+	5. opcja exit:
+		- zamyka program [0.5]
