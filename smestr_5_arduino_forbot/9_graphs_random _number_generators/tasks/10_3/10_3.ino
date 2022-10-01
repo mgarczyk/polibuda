@@ -15,7 +15,7 @@ void setup() {
 void loop() {
 
   if (digitalRead(SWITCH) == LOW){
-    Serial.println(random(1, 6));
+    Serial.println(random(1, 7));
     delay(1000);
   }
   

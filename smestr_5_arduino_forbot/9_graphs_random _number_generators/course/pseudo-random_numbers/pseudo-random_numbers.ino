@@ -14,6 +14,10 @@ Then the returned value will be a number in the range from 0 to a number one sma
 
 random(100, 500); //a random number in the range 100-499
 
+Remember!
+
+The maximum number drawn will always be 1 less than the upper range we specified!
+
 
 To improve the performance of the random algorithm, 
 it would be best to start with a different value as the first, initial one before each start.
