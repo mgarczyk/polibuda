@@ -1,0 +1,23 @@
+<ASSEMBLER_INFO>
+ <VERSION>2.1.42</VERSION>
+ <DEVICE>ATmega16</DEVICE>
+ <WORKING_DIR>C:\Users\Marcel\Desktop\LAB_1_Garczyk_Hatka_wstep</WORKING_DIR>
+ <INCLUDE_PATH>
+  <DIR>D:\Programs\AvrAssembler2\Appnotes</DIR>
+ </INCLUDE_PATH>
+ <SOURCE_FILE>C:\Users\Marcel\Desktop\LAB_1_Garczyk_Hatka_wstep\LAB_1.asm</SOURCE_FILE>
+ <INCLUDED_FILES>
+  <FILE>D:\Programs\AvrAssembler2\Appnotes\m16def.inc</FILE>
+ </INCLUDED_FILES>
+ <OBJECT_FILES>
+  <FILE>C:\Users\Marcel\Desktop\LAB_1_Garczyk_Hatka_wstep\LAB_1.obj</FILE>
+ </OBJECT_FILES>
+ <HEX_FILES>
+  <FILE>C:\Users\Marcel\Desktop\LAB_1_Garczyk_Hatka_wstep\LAB_1.hex</FILE>
+ </HEX_FILES>
+ <OUTPUT_FILES>
+  <FILE>C:\Users\Marcel\Desktop\LAB_1_Garczyk_Hatka_wstep\LAB_1.map</FILE>
+ </OUTPUT_FILES>
+ <LABELS>
+ </LABELS>
+</ASSEMBLER_INFO>
