@@ -18,7 +18,7 @@ Aż po systemy wbudowane jak Arduino oraz naukę obsługi i programowania mikrok
 - Python
 - C/C++
 - Octave/Matlab
-- Arduino
 - Jupyter notebook
+- Arduino
 - MCS 8051 / AVR Assembler
 
