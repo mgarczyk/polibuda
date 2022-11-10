@@ -1,5 +1,5 @@
 # Description
-Whole Arduino course 2 from Forbot. All examples and additional tasks.
+Whole Arduino course II from Forbot. All examples and additional tasks.
 
 # Forbot Description
 The course was prepared with two groups of readers in mind. The first, are those who learned programming from the first course. The second group is all those who have an Arduino in their drawer, know the basics, but do not have the strength to explore the platform on their own!
