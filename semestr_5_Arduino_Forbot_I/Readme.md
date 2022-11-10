@@ -12,7 +12,7 @@ Arduino course content
 
 The series is planned for 11 articles that cover the following topics:
     <ul>
-        <li>- 1 - Arduino basics and environment</li>
+        <li>1 - Arduino basics and environment</li>
         <li>Alan Bean</li>
         <li>Peter Conrad</li>
         <li>Edgar Mitchell</li>
