@@ -15,8 +15,8 @@ The series is planned for 10 articles that cover the following topics:
         <li>4 - Interrupts, reed switch, PIR sensorr</li>
         <li>5 - Keypad, own alarm system</li>
         <li>6 - 7-segment displays</li>
+        <li>7 - Analog and digital thermometers</li>
         <li>8 - UART continuation, servos</li>
-        <li>8 - DC motor control, for loop</li>
         <li>9 - Digital humidity sensor (DHT11)</li>
         <li>10 - Multitasking, delays with millis()</li>
     </ul>
