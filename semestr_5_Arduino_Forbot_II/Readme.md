@@ -22,4 +22,4 @@ The series is planned for 10 articles that cover the following topics:
     </ul>
 
 # Link
-<a href = https://forbot.pl/blog/kurs-arduino-ii-wstep-spis-tresci-id15494> Forbot Arduino course 2 </a>
+<a href = https://forbot.pl/blog/kurs-arduino-ii-wstep-spis-tresci-id15494> Forbot Arduino course II </a>
