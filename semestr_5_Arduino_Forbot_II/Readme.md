@@ -9,7 +9,7 @@ Arduino course content
 The series is planned for 9 articles that cover the following topics:
 
   <ul>
-        <li>1 - RGB LED's</li>
+        <li>1 - RGB LEDs</li>
         <li>2 - Programmable RGB LEDs (WS2812)</li>
         <li>3 - Alarm siren, MOSFET in practice</li>
         <li>4 - Interrupts, reed switch, PIR sensorr</li>
