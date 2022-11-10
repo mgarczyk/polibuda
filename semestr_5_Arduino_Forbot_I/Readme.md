@@ -12,6 +12,7 @@ Arduino course content
 
 The series is planned for 11 articles that cover the following topics:
     - 1 - Arduino basics and environment
+    
     - 2 - programming basics, I/O ports
     - 3 - UART (communication with PC), variables
     - 4 - ADC converter
