@@ -6,7 +6,7 @@ The course was prepared with two groups of readers in mind. The first, are those
 
 # Content
 Arduino course content 
-The series is planned for 9 articles that cover the following topics:
+The series is planned for 8 articles that cover the following topics:
 
   <ul>
         <li>1 - RGB LEDs</li>
