@@ -14,7 +14,7 @@ The series is planned for 8 articles that cover the following topics:
         <li>3 - Alarm siren, MOSFET in practice</li>
         <li>4 - Reed switch, PIR sensor</li>
         <li>5 - Arduino interrupts</li>
-        <li>6 - Keypad</li>
+        <li>6 - Numeric keypad</li>
         <li>7 - Own alarm system</li>
         <li>8 - 7-segment displays</li>
         <li>9 - Analog  thermometer - LM35</li>
