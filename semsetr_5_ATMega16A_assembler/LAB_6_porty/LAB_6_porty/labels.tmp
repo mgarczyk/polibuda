@@ -1,0 +1,30 @@
+<ASSEMBLER_INFO>
+ <VERSION>2.1.12</VERSION>
+ <DEVICE>ATmega16</DEVICE>
+ <WORKING_DIR>C:\Users\student\Desktop\LAB_6_porty\LAB_6_porty</WORKING_DIR>
+ <INCLUDE_PATH>
+  <DIR>C:\Program Files (x86)\Atmel\AVR Tools\AvrAssembler2\Appnotes</DIR>
+ </INCLUDE_PATH>
+ <SOURCE_FILE>C:\Users\student\Desktop\LAB_6_porty\LAB_6_porty\LAB_6_porty_dom1_2wers.asm</SOURCE_FILE>
+ <INCLUDED_FILES>
+  <FILE>C:\Program Files (x86)\Atmel\AVR Tools\AvrAssembler2\Appnotes\m16def.inc</FILE>
+ </INCLUDED_FILES>
+ <OBJECT_FILES>
+  <FILE>C:\Users\student\Desktop\LAB_6_porty\LAB_6_porty\LAB_6_porty.obj</FILE>
+ </OBJECT_FILES>
+ <HEX_FILES>
+  <FILE>C:\Users\student\Desktop\LAB_6_porty\LAB_6_porty\LAB_6_porty.hex</FILE>
+ </HEX_FILES>
+ <OUTPUT_FILES>
+  <FILE>C:\Users\student\Desktop\LAB_6_porty\LAB_6_porty\LAB_6_porty.map</FILE>
+ </OUTPUT_FILES>
+ <LABELS>
+  <START><FILE>C:\Users\student\Desktop\LAB_6_porty\LAB_6_porty\LAB_6_porty_dom1_2wers.asm</FILE><LINE>11</LINE></START>
+  <MAIN><FILE>C:\Users\student\Desktop\LAB_6_porty\LAB_6_porty\LAB_6_porty_dom1_2wers.asm</FILE><LINE>20</LINE></MAIN>
+  <MASKAL><FILE>C:\Users\student\Desktop\LAB_6_porty\LAB_6_porty\LAB_6_porty_dom1_2wers.asm</FILE><LINE>22</LINE></MASKAL>
+  <MAIN2><FILE>C:\Users\student\Desktop\LAB_6_porty\LAB_6_porty\LAB_6_porty_dom1_2wers.asm</FILE><LINE>29</LINE></MAIN2>
+  <MASKAR><FILE>C:\Users\student\Desktop\LAB_6_porty\LAB_6_porty\LAB_6_porty_dom1_2wers.asm</FILE><LINE>31</LINE></MASKAR>
+  <DELAY_1s><FILE>C:\Users\student\Desktop\LAB_6_porty\LAB_6_porty\LAB_6_porty_dom1_2wers.asm</FILE><LINE>40</LINE></DELAY_1s>
+  <OP_1s><FILE>C:\Users\student\Desktop\LAB_6_porty\LAB_6_porty\LAB_6_porty_dom1_2wers.asm</FILE><LINE>46</LINE></OP_1s>
+ </LABELS>
+</ASSEMBLER_INFO>
