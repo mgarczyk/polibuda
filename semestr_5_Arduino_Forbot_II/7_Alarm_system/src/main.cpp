@@ -1,107 +1,173 @@
 /*
 Our alarm system will consist of a numeric keypad, a sounder, a beacon, a motion sensor (PIR) and a door-opening sensor (reed switch).
 
-Of course, the whole thing can work in many different ways. I decided that my alarm will work as follows: when the power is turned on, we enter standby mode. 
+Of course, the whole thing can work in many different ways. I decided that my alarm will work as follows: when the power is turned on, we enter standby mode.
 The alarm does nothing but wait for it to be armed. When you press the A key (like Alarm), the arming procedure takes place.
 
-After a few seconds (time to leave the room), the alarm starts working - from now on our room is guarded. 
+After a few seconds (time to leave the room), the alarm starts working - from now on our room is guarded.
 The moment we detect movement in the room, the alarm begins to immediately signal the threat.
 
 Does the alarm have time to notice a fast thief?
 
-If we detect the opening of the door, we give the user a few seconds to disarm the alarm, which involves entering a four-digit code. 
+If we detect the opening of the door, we give the user a few seconds to disarm the alarm, which involves entering a four-digit code.
 If the pin code is wrong or not entered, the alarm will also be triggered.
 
 */
 
-#include <Keypad.h> 
-#include <Adafruit_NeoPixel.h> 
+#include <Keypad.h>
+#include <Adafruit_NeoPixel.h>
 #define BUZZER 11
 #define CONCRATRON 10
 #define PIR 12
 
-const byte ROWS = 4; 
-const byte COLS = 4; 
+const byte ROWS = 4;
+const byte COLS = 4;
 byte rowPins[ROWS] = {5, 4, 3, 2};
-byte colPins[COLS] = {6, 7, 8, 9}; 
-char keys[ROWS][COLS] = { //keymap map
-  {'1','2','3','A'},
-  {'4','5','6','B'},
-  {'7','8','9','C'},
-  {'*','0','#','D'}
-};
- 
-Keypad keypad = Keypad(makeKeymap(keys), rowPins, colPins, ROWS, COLS); //keypad init
-Adafruit_NeoPixel LED_bar = Adafruit_NeoPixel(8, A0, NEO_GRB + NEO_KHZ800); //LED bar init
+byte colPins[COLS] = {6, 7, 8, 9};
+char keys[ROWS][COLS] = { // keymap map
+    {'1', '2', '3', 'A'},
+    {'4', '5', '6', 'B'},
+    {'7', '8', '9', 'C'},
+    {'*', '0', '#', 'D'}};
+
+Keypad keypad = Keypad(makeKeymap(keys), rowPins, colPins, ROWS, COLS);     // keypad init
+Adafruit_NeoPixel LED_bar = Adafruit_NeoPixel(8, A0, NEO_GRB + NEO_KHZ800); // LED bar init
 volatile int alarm_state = 1;
- 
-void alarm_siren(){
-  tone(BUZZER, 4300); 
-  delay(150);  
+volatile int confirmation_time = 3;
+volatile int max_time_to_alarm  = 10;
+char code_alarm[4] = {'1', '2', '3', '4'};
+
+// STATE 1 - standby
+void arming_visuals()
+{
+  LED_bar.setPixelColor(0, LED_bar.Color(255, 165, 0));
+  LED_bar.show();
+  tone(BUZZER, 500, 1000);
+  delay(500);
+  LED_bar.setPixelColor(0, LED_bar.Color(0, 0, 0));
+  LED_bar.show();
+  delay(500);
 }
 
-
-void alarming(){
-  for (int i=0; i<8; i++){
-     LED_bar.setPixelColor(i, LED_bar.Color(15, 0, 0));
-     LED_bar.show();
-  }
-  delay(100);
-  for (int i=0; i<8; i++){
-     LED_bar.setPixelColor(i, LED_bar.Color(0, 0, 15));
-     LED_bar.show();
-  }
-  delay(100);
-  alarm_siren();
+void arming_confirmation_visuals(){
+   LED_bar.setPixelColor(0, LED_bar.Color(255, 165, 0));
+   LED_bar.show();
 }
 
-void armed_decision(){
-   if (digitalRead(PIR) == HIGH) {
-        alarm_state = 4; 
-      }else if(digitalRead(CONCRATRON) == 1){
-        alarm_state = 4;
+void arming_confirmation(char pressed_key)
+{
+  while (pressed_key == 'A' or pressed_key == 0)
+  {
+    arming_confirmation_visuals();
+    pressed_key = keypad.getKey();
+    if (pressed_key == 'B')
+    {
+      for (int i = 0; i < confirmation_time; i++)
+      {
+        arming_visuals();
       }
-}
-
-void armed_blinking(){
-    LED_bar.setPixelColor(0, LED_bar.Color(15, 0, 0)); 
-    LED_bar.show();
-    delay(1000);
-    LED_bar.setPixelColor(0, LED_bar.Color(0, 0, 0)); 
-    LED_bar.show();
-    delay(1000);
-}
-
-
-void arming_confirmation(char pressed_key){
-  LED_bar.setPixelColor(0, LED_bar.Color(255,165,0));
-  while(pressed_key == 'A' or pressed_key == 0){
-    LED_bar.show();
-    pressed_key = keypad.getKey();
-    if (pressed_key == 'B') alarm_state = 2;
-    else alarm_state = 1;
+      alarm_state = 2;
+    }
+    else
+    {
+      alarm_state = 1;
+    }
   }
 }
 
-void arming_the_alarm(char pressed_key){
-    pressed_key = keypad.getKey();
-    if (pressed_key == 'A'){ 
-      arming_confirmation(pressed_key);
-    }
+void arming_the_alarm(char pressed_key)
+{
+  pressed_key = keypad.getKey();
+  if (pressed_key == 'A')
+  {
+    arming_confirmation(pressed_key);
+  }
 }
 
-void standby(char pressed_key){
-    LED_bar.setPixelColor(0, LED_bar.Color(0, 15, 0));
-    LED_bar.show();
-    arming_the_alarm(pressed_key);
+void standby(char pressed_key)
+{
+  LED_bar.setPixelColor(0, LED_bar.Color(0, 15, 0));
+  LED_bar.show();
+  arming_the_alarm(pressed_key);
+}
+
+// STATE 2 - minitoring
+void monitoring()
+{
+  if (digitalRead(PIR) == HIGH)
+  {
+    alarm_state = 4;
+  }
+  else if (digitalRead(CONCRATRON) == 1)
+  {
+    alarm_state = 3;
+  }
+}
+
+void minitoring_visuals()
+{
+  LED_bar.setPixelColor(0, LED_bar.Color(15, 0, 0));
+  LED_bar.show();
+  delay(1000);
+  LED_bar.setPixelColor(0, LED_bar.Color(0, 0, 0));
+  LED_bar.show();
+  delay(1000);
 }
 
 void PIR_interrupt(){
-  if (alarm_state == 2 or alarm_state == 3)
-      alarm_state = 4;
+  if(alarm_state == 2) alarm_state = 4;
 }
 
-void setup() {
+// STATE 3 - disarming the alarm
+void disarming_visuals(){
+  LED_bar.setPixelColor(0, LED_bar.Color(221,160,221));
+  LED_bar.show();
+  delay(100);
+  LED_bar.setPixelColor(0, LED_bar.Color(0, 0, 0));
+  LED_bar.show();
+  delay(100);
+
+}
+
+int disarming_alarm()
+{
+  int time_to_alarm = 1;
+  for (int i = 0; i < sizeof(code_alarm); i++)
+  {
+    char key_tmp = 0;
+    do
+    {
+      disarming_visuals();
+      key_tmp = keypad.getKey();
+      Serial.println(code_alarm[i]);
+      if (key_tmp != code_alarm[i] && key_tmp != false or time_to_alarm == max_time_to_alarm) return 4;
+      delay(1000);
+      time_to_alarm += 1;
+    } while (key_tmp == false);
+  }
+  return 1;
+}
+
+// STATE 4 - alarming!
+void alarming()
+{
+  for (int i = 0; i < 8; i++)
+  {
+    LED_bar.setPixelColor(i, LED_bar.Color(15, 0, 0));
+    LED_bar.show();
+  }
+  delay(100);
+  for (int i = 0; i < 8; i++)
+  {
+    LED_bar.setPixelColor(i, LED_bar.Color(0, 0, 15));
+    LED_bar.show();
+  }
+  delay(100);
+  tone(BUZZER, 4000, 100);
+}
+
+void setup()
+{
   pinMode(BUZZER, OUTPUT);
   pinMode(CONCRATRON, INPUT_PULLUP);
   pinMode(PIR, INPUT_PULLUP);
@@ -110,24 +176,24 @@ void setup() {
   Serial.begin(9600);
   attachInterrupt(digitalPinToInterrupt(PIR), PIR_interrupt, RISING);
 }
- 
-void loop() {
+
+void loop()
+{
   char pressed_key = 0;
-  switch(alarm_state){ 
-    case 1:
-      standby(pressed_key);
+  switch (alarm_state)
+  {
+  case 1:
+    standby(pressed_key);
     break;
-    case 2:
-      armed_blinking();
-      armed_decision();
+  case 2:
+    minitoring_visuals();
+    monitoring();
     break;
-    case 3:
-      
- 
+  case 3:
+    alarm_state = disarming_alarm();
     break;
-    
-    case 4:
-      alarming();
+  case 4:
+    alarming();
     break;
   }
 }
