@@ -34,8 +34,9 @@ Keypad keypad = Keypad(makeKeymap(keys), rowPins, colPins, ROWS, COLS);     // k
 Adafruit_NeoPixel LED_bar = Adafruit_NeoPixel(8, A0, NEO_GRB + NEO_KHZ800); // LED bar init
 volatile int alarm_state = 1;
 volatile int confirmation_time = 3;
-volatile int max_time_to_alarm = 10;
+volatile int max_time_to_alarm = 5000;
 char code_alarm[4] = {'1', '2', '3', '4'};
+
 
 // STATE 1 - standby
 void arming_visuals()
@@ -132,15 +133,17 @@ void disarming_visuals()
 
 int disarming_alarm()
 {
-
+  disarming_visuals();
   for (int i = 0; i < sizeof(code_alarm); i++)
   {
-    char key_tmp = false;
+    char key_tmp = NO_KEY;
     do
     {
       key_tmp = keypad.getKey();
-    }while (key_tmp == false);
-    if (key_tmp != code_alarm[i])
+      delay(10);
+      max_time_to_alarm-=10; //We have to count time in miliseconds, because we wait on key press. When user press the key there is maybe 50ms for AVR to get it, delay must be smaller.
+    }while (key_tmp == NO_KEY && max_time_to_alarm > 0);
+    if (key_tmp != code_alarm[i] or max_time_to_alarm == 0)
      return 4;
   }
   return 1;
