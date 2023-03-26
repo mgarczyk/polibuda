@@ -33,8 +33,8 @@ char keys[ROWS][COLS] = { // keymap map
 Keypad keypad = Keypad(makeKeymap(keys), rowPins, colPins, ROWS, COLS);     // keypad init
 Adafruit_NeoPixel LED_bar = Adafruit_NeoPixel(8, A0, NEO_GRB + NEO_KHZ800); // LED bar init
 volatile int alarm_state = 1;
-volatile int confirmation_time = 3;
-volatile int max_time_to_alarm = 5000;
+volatile int time_to_arming_sec = 10;
+volatile int time_for_disarming_ms = 10000;
 char code_alarm[4] = {'1', '2', '3', '4'};
 
 
@@ -64,7 +64,7 @@ void arming_confirmation(char pressed_key)
     pressed_key = keypad.getKey();
     if (pressed_key == 'B')
     {
-      for (int i = 0; i < confirmation_time; i++)
+      for (int i = 0; i < time_to_arming_sec; i++)
       {
         arming_visuals();
       }
@@ -142,9 +142,9 @@ int disarming_alarm()
     {
       key_tmp = keypad.getKey();
       delay(10);
-      max_time_to_alarm-=10; //We have to count time in miliseconds, because we wait on key press. When user press the key there is maybe 50ms for AVR to get it, delay must be smaller.
-    }while (key_tmp == NO_KEY && max_time_to_alarm > 0);
-    if (key_tmp != code_alarm[i] or max_time_to_alarm == 0)
+      time_for_disarming_ms-=10; //We have to count time in miliseconds, because we wait on key press. When user press the key there is maybe 50ms for AVR to get it, delay must be smaller.
+    }while (key_tmp == NO_KEY && time_for_disarming_ms > 0);
+    if (key_tmp != code_alarm[i] or time_for_disarming_ms == 0)
      return 4;
   }
   return 1;
