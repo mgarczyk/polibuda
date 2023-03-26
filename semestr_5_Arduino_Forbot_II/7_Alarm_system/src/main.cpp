@@ -106,6 +106,7 @@ int monitoring()
   {
     return 3;
   }
+  return 2;
 }
 
 void minitoring_visuals()
