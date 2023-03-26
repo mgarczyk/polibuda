@@ -34,7 +34,7 @@ Keypad keypad = Keypad(makeKeymap(keys), rowPins, colPins, ROWS, COLS);     // k
 Adafruit_NeoPixel LED_bar = Adafruit_NeoPixel(8, A0, NEO_GRB + NEO_KHZ800); // LED bar init
 volatile int alarm_state = 1;
 volatile int confirmation_time = 3;
-volatile int max_time_to_alarm  = 10;
+volatile int max_time_to_alarm = 10;
 char code_alarm[4] = {'1', '2', '3', '4'};
 
 // STATE 1 - standby
@@ -49,9 +49,10 @@ void arming_visuals()
   delay(500);
 }
 
-void arming_confirmation_visuals(){
-   LED_bar.setPixelColor(0, LED_bar.Color(255, 165, 0));
-   LED_bar.show();
+void arming_confirmation_visuals()
+{
+  LED_bar.setPixelColor(0, LED_bar.Color(255, 165, 0));
+  LED_bar.show();
 }
 
 void arming_confirmation(char pressed_key)
@@ -75,8 +76,10 @@ void arming_confirmation(char pressed_key)
   }
 }
 
-void arming_the_alarm(char pressed_key)
+void arming_the_alarm()
+
 {
+  char pressed_key = 0;
   pressed_key = keypad.getKey();
   if (pressed_key == 'A')
   {
@@ -84,23 +87,23 @@ void arming_the_alarm(char pressed_key)
   }
 }
 
-void standby(char pressed_key)
+void standby()
 {
   LED_bar.setPixelColor(0, LED_bar.Color(0, 15, 0));
   LED_bar.show();
-  arming_the_alarm(pressed_key);
+  arming_the_alarm();
 }
 
 // STATE 2 - minitoring
-void monitoring()
+int monitoring()
 {
   if (digitalRead(PIR) == HIGH)
   {
-    alarm_state = 4;
+    return 4;
   }
   else if (digitalRead(CONCRATRON) == 1)
   {
-    alarm_state = 3;
+    return 3;
   }
 }
 
@@ -114,36 +117,31 @@ void minitoring_visuals()
   delay(1000);
 }
 
-void PIR_interrupt(){
-  if(alarm_state == 2) alarm_state = 4;
+void PIR_interrupt()
+{
+  if (alarm_state == 2)
+    alarm_state = 4;
 }
 
 // STATE 3 - disarming the alarm
-void disarming_visuals(){
-  LED_bar.setPixelColor(0, LED_bar.Color(221,160,221));
+void disarming_visuals()
+{
+  LED_bar.setPixelColor(0, LED_bar.Color(221, 160, 221));
   LED_bar.show();
-  delay(100);
-  LED_bar.setPixelColor(0, LED_bar.Color(0, 0, 0));
-  LED_bar.show();
-  delay(100);
-
 }
 
 int disarming_alarm()
 {
-  int time_to_alarm = 1;
+
   for (int i = 0; i < sizeof(code_alarm); i++)
   {
-    char key_tmp = 0;
+    char key_tmp = false;
     do
     {
-      disarming_visuals();
       key_tmp = keypad.getKey();
-      Serial.println(code_alarm[i]);
-      if (key_tmp != code_alarm[i] && key_tmp != false or time_to_alarm == max_time_to_alarm) return 4;
-      delay(1000);
-      time_to_alarm += 1;
-    } while (key_tmp == false);
+    }while (key_tmp == false);
+    if (key_tmp != code_alarm[i])
+     return 4;
   }
   return 1;
 }
@@ -179,17 +177,18 @@ void setup()
 
 void loop()
 {
-  char pressed_key = 0;
+  
   switch (alarm_state)
   {
   case 1:
-    standby(pressed_key);
+    standby();
     break;
   case 2:
     minitoring_visuals();
-    monitoring();
+    alarm_state = monitoring();
     break;
   case 3:
+    disarming_visuals();
     alarm_state = disarming_alarm();
     break;
   case 4:
