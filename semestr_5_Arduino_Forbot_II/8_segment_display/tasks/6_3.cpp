@@ -1,16 +1,10 @@
-#include <Arduino.h>
 /*
 
-Add buttons to the circuit to build a counter:
-
-    S1 - increase the digit shown on the display by 1,
-    S2 - decrease the digit shown on the display by 1,
-    S3 - resetting the circuit. - basiclly arduino reset button
-
+Write a program of a counter, the value of which changes from 0 to 99.
+The change of the value can be done automatically (every fixed, fixed time) or, for example, when a button is pressed.
 */
 
-#define INCR 2
-#define DECR 3
+#include <Arduino.h>
 #define SEG_D 4
 #define SEG_B 5
 #define SEG_G 6
@@ -18,14 +12,12 @@ Add buttons to the circuit to build a counter:
 #define SEG_F 8
 #define SEG_C 9
 #define SEG_E 10
+#define DISP_1 11
+#define DISP_2 12
 
-volatile int counter = 0;
-
-void display(int digit)
+void display(int cyfra)
 {
-    // The switch instruction sets the corresponding states on the outputs
-    // depending on the specified digit
-    switch (digit)
+    switch (cyfra)
     {
     case 0:
         digitalWrite(SEG_A, HIGH);
@@ -139,39 +131,51 @@ void display(int digit)
     }
 }
 
-void increment()
-{
-    counter += 1;
-}
-
-void decrement()
-{
-    counter -= 1;
-
-}
-
 void setup()
 {
-    // Configure pins as outputs
+
     pinMode(SEG_A, OUTPUT);
     pinMode(SEG_B, OUTPUT);
+    pinMode(SEG_C, OUTPUT);
     pinMode(SEG_D, OUTPUT);
     pinMode(SEG_E, OUTPUT);
     pinMode(SEG_F, OUTPUT);
     pinMode(SEG_G, OUTPUT);
-    pinMode(INCR, INPUT_PULLUP);
-    pinMode(DECR, INPUT_PULLUP);
-    attachInterrupt(digitalPinToInterrupt(DECR), decrement, FALLING);
-    attachInterrupt(digitalPinToInterrupt(INCR), increment, FALLING);
-   
+    pinMode(DISP_1, OUTPUT);
+    pinMode(DISP_2, OUTPUT);
+}
+
+void enable_disp_1()
+{
+    digitalWrite(DISP_1, HIGH);
+    digitalWrite(DISP_2, LOW);
+}
+
+void enable_disp_2()
+{
+     digitalWrite(DISP_1, LOW);
+     digitalWrite(DISP_2, HIGH);
 }
 
 void loop()
 {
-   for (counter = 0; counter < 12; counter++)
+
+    for (int i = 0; i <= 9; i++)
     {
-        display(counter);
-        delay(1000);
+
+        for (int j = 0; j <= 9; j++)
+        {
+            int display_time = 1000; //Time of displaying the number.
+            while (display_time > 0)
+            {
+                enable_disp_1();
+                display(i);
+                delay(10);
+                enable_disp_2();
+                display(j);
+                delay(10);
+                display_time -= 20; //20ms have passed
+            }
+        }
     }
-  
 }

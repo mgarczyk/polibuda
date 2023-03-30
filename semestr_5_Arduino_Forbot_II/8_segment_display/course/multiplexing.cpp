@@ -1,31 +1,28 @@
-#include <Arduino.h>
 /*
 
-Add buttons to the circuit to build a counter:
+Double displaying the same value is unlikely to ever be useful to us....
 
-    S1 - increase the digit shown on the display by 1,
-    S2 - decrease the digit shown on the display by 1,
-    S3 - resetting the circuit. - basiclly arduino reset button
+The solution to the problem is multiplexing. 
+If we take turns on and off each display, we will be able to show a different digit on each display when quickly changing the displayed value 
+(such will be the illusion thanks to the inertia of our eyesight)! Of course, we will not disconnect the cathodes from ground manually. We will use the Arduino!
+
 
 */
 
-#define INCR 2
-#define DECR 3
-#define SEG_D 4
-#define SEG_B 5
-#define SEG_G 6
-#define SEG_A 7
-#define SEG_F 8
-#define SEG_C 9
-#define SEG_E 10
+#include <Arduino.h>
+#define SEG_C 4
+#define SEG_E 5
+#define SEG_D 6
+#define SEG_B 7
+#define SEG_G 8
+#define SEG_A 9
+#define SEG_F 10
+#define DISP_1 11
+#define DISP_2 12
 
-volatile int counter = 0;
-
-void display(int digit)
+void display(int cyfra)
 {
-    // The switch instruction sets the corresponding states on the outputs
-    // depending on the specified digit
-    switch (digit)
+    switch (cyfra)
     {
     case 0:
         digitalWrite(SEG_A, HIGH);
@@ -139,39 +136,27 @@ void display(int digit)
     }
 }
 
-void increment()
-{
-    counter += 1;
-}
-
-void decrement()
-{
-    counter -= 1;
-
-}
-
 void setup()
 {
-    // Configure pins as outputs
     pinMode(SEG_A, OUTPUT);
     pinMode(SEG_B, OUTPUT);
+    pinMode(SEG_C, OUTPUT);
     pinMode(SEG_D, OUTPUT);
     pinMode(SEG_E, OUTPUT);
     pinMode(SEG_F, OUTPUT);
     pinMode(SEG_G, OUTPUT);
-    pinMode(INCR, INPUT_PULLUP);
-    pinMode(DECR, INPUT_PULLUP);
-    attachInterrupt(digitalPinToInterrupt(DECR), decrement, FALLING);
-    attachInterrupt(digitalPinToInterrupt(INCR), increment, FALLING);
-   
+    pinMode(DISP_1, OUTPUT);
+    pinMode(DISP_2, OUTPUT);
 }
 
 void loop()
 {
-   for (counter = 0; counter < 12; counter++)
-    {
-        display(counter);
-        delay(1000);
-    }
-  
+    digitalWrite(DISP_1, HIGH);
+    digitalWrite(DISP_2, LOW);
+    display(8);
+    delay(10);
+    digitalWrite(DISP_1, LOW);
+    digitalWrite(DISP_2, HIGH);
+    display(8);
+    delay(10);
 }

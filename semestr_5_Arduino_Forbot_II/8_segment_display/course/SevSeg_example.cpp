@@ -19,7 +19,6 @@ On the Internet you can find at least a few such ready-made functions, during th
 #define SEG_E 10
 #define DISP_1 11
 #define DISP_2 12
-#define POTENTIOMETER A0
 
 SevSeg sevseg; //Instantiate a seven segment controller object
  
@@ -33,8 +32,6 @@ void setup() {
 }
  
 void loop() {
-  int potentiometer_val = analogRead(POTENTIOMETER); // Read information from potentiometer
-  potentiometer_val = map(potentiometer_val, 0, 1023, 0, 99); ///Scale to display
-  sevseg.setNumber(potentiometer_val, 2);
+  sevseg.setChars("37");
   sevseg.refreshDisplay();
- }
+}
