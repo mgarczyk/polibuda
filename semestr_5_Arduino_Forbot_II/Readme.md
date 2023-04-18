@@ -21,6 +21,7 @@ The series is planned for 8 articles that cover the following topics:
         <li>10 - Digital thermometer - DS18B20 </li>
         <li>11 - Digital humidity sensor (DHT11)</li>
         <li>12 - Multitasking, delays with millis()</li>
+        <li>13 - Room thermometer</li>
     </ul>
 
 # Link
