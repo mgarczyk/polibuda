@@ -1,2 +1,0 @@
-@ECHO OFF
-"D:\Programs\AVR_Studio_4_19\AvrAssembler2\avrasm2.exe" -S "C:\Users\Marcel\Desktop\LAB_12_Sterowniik\labels.tmp" -fI -W+ie -C V2E -o "C:\Users\Marcel\Desktop\LAB_12_Sterowniik\LAB_12_programy.hex" -d "C:\Users\Marcel\Desktop\LAB_12_Sterowniik\LAB_12_programy.obj" -e "C:\Users\Marcel\Desktop\LAB_12_Sterowniik\LAB_12_programy.eep" -m "C:\Users\Marcel\Desktop\LAB_12_Sterowniik\LAB_12_programy.map" "C:\Users\Marcel\Desktop\LAB_12_Sterowniik\LAB_12_program_2.asm"
