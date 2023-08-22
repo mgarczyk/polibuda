@@ -28,4 +28,4 @@ The course consists of 17 comprehensive articles, and each of them is a powerful
     </ul>
 
 # Link
-<a href = https://forbot.pl/blog/kurs-arduino-ii-wstep-spis-tresci-id15494> Forbot Arduino course II </a>
+<a href = https://forbot.pl/blog/kurs-stm32-l4-wstep-spis-tresci-dla-kogo-jest-ten-kurs-id48575> Forbot STM32L4 course </a>
