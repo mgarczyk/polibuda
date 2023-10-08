@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/Pilot"
+        android:title="Pilot"
+        android:icon="@drawable/baseline_bluetooth_drive_24"
+        app:showAsAction="ifRoom"/>
+    <item
+        android:id="@+id/camera"
+        android:title="Camera View"
+        android:icon="@drawable/camera"
+        app:showAsAction="ifRoom"/>
+    <item
+        android:id="@+id/sensors"
+        android:title="Sensors Details"
+        android:icon="@drawable/baseline_sensors_24"
+        app:showAsAction="ifRoom"/>
+</menu>
